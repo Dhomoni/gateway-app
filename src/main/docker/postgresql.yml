@@ -1,0 +1,11 @@
+version: '2'
+services:
+    dhomoni-postgresql:
+        image: postgres:10.4
+        # volumes:
+        #     - ~/volumes/jhipster/dhomoni/postgresql/:/var/lib/postgresql/data/
+        environment:
+            - POSTGRES_USER=dhomoni
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5433:5432

@@ -1,0 +1,8 @@
+version: '2'
+services:
+    dhomoni-sonar:
+        image: sonarqube:7.1
+        restart: always
+        ports:
+            - 9001:9000
+            - 10000:9092
