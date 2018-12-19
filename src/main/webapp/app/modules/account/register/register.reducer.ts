@@ -54,18 +54,6 @@ export const handleRegister = account => ({
   }
 });
 
-// export const handleRegister = (login, password, langKey = 'en', firstName, lastName,
-//        email, phone, image, imageContentType, authorities, licenceNumber, nationalId,
-//        passportNo, designation, description) => ({
-//  type: ACTION_TYPES.CREATE_ACCOUNT,
-//  payload: axios.post('uaa/api/register', { login, password, langKey,
-//      firstName, lastName, email, phone, image, imageContentType,
-//      authorities, licenceNumber, nationalId, passportNo, designation, description}),
-//  meta: {
-//    successMessage: translate('register.messages.success')
-//  }
-// });
-
 export const reset = () => ({
   type: ACTION_TYPES.RESET
 });

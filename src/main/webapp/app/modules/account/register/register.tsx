@@ -1,14 +1,17 @@
+import './register.scss';
 import React from 'react';
 import { Translate, translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
-import { Row, Col, Alert, Button } from 'reactstrap';
+import { Row, Col, Alert, Button, Label } from 'reactstrap';
 
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
 import { IRootState } from 'app/shared/reducers';
 import { handleRegister, reset } from './register.reducer';
-import { AUTHORITIES } from 'app/config/constants';
-import ImageUpload from 'app/shared/util/image-upload';
+import { AUTHORITIES, SEX, BLOODGROUP } from 'app/config/constants';
+import ImageUpload from 'app/shared/component/image-upload';
+import LocMap from 'app/shared/component/location-map';
+import DatePicker from 'react-datepicker';
 
 export interface IRegisterProps extends StateProps, DispatchProps {}
 
@@ -17,6 +20,10 @@ export interface IRegisterState {
   selectedUserType: string;
   image: string;
   imageContentType: string;
+  lat: number;
+  lng: number;
+  address: string;
+  birthTimestamp: number;
 }
 
 export class RegisterPage extends React.Component<IRegisterProps, IRegisterState> {
@@ -24,7 +31,11 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
     password: '',
     selectedUserType: AUTHORITIES.USER,
     image: '',
-    imageContentType: ''
+    imageContentType: '',
+    lat: null,
+    lng: null,
+    address: '',
+    birthTimestamp: null
   };
 
   componentWillUnmount() {
@@ -38,23 +49,45 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
       authorities: [this.state.selectedUserType],
       langKey: this.props.currentLocale,
       image: this.state.image,
-      imageContentType: this.state.imageContentType
+      imageContentType: this.state.imageContentType,
+      address: this.state.address,
+      location: {
+        type: 'Point',
+        'coordinates': [this.state.lat, this.state.lng]
+      },
+      patientDTO: {
+        ...values,
+        birthTimestamp: this.state.birthTimestamp / 1000.0
+      },
+      doctorDTO: {
+        ...values,
+        degrees: [{
+          name: values.degreeName,
+          institute: values.degreeInstitute,
+          country: values.degreeCountry,
+          enrollmentYear: values.degreeEnrollmentYear,
+          passingYear: values.degreePassingYear
+        }]
+      }
     };
     this.props.handleRegister(account);
     event.preventDefault();
   };
 
-  updatePassword = event => {
+  updatePassword = event =>
     this.setState({ password: event.target.value });
-  };
 
-  onDropdownSelected = event => {
+  onDropdownSelected = event =>
     this.setState({ selectedUserType: event.target.value });
-  };
 
-  imageUploadCallback = (data, contentType) => {
+  imageUploadCallback = (data, contentType) =>
     this.setState({ image: data, imageContentType: contentType });
-  };
+
+  onLocationPickEnd = (latlng, addr) =>
+    this.setState({ lat: latlng.lat, lng: latlng.lng, address: addr });
+
+  handleDateChange = date =>
+    this.setState({ birthTimestamp: date.getTime() });
 
   render() {
     const userTypeOptions = [{ value: AUTHORITIES.USER, label: 'User' }, { value: AUTHORITIES.DOCTOR, label: 'Doctor' }];
@@ -120,7 +153,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
                 label={translate('global.form.firstname')}
                 placeholder={translate('global.form.firstname.placeholder')}
                 validate={{
-                  required: { value: true, errorMessage: translate('register.messages.validate.firstname.required') }
+                  required: { value: true, errorMessage: translate('global.messages.validate.firstname.required') }
                 }}
               />
               <AvField
@@ -128,7 +161,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
                 label={translate('global.form.lastname')}
                 placeholder={translate('global.form.lastname.placeholder')}
                 validate={{
-                  required: { value: true, errorMessage: translate('register.messages.validate.lastname.required') }
+                  required: { value: true, errorMessage: translate('global.messages.validate.lastname.required') }
                 }}
               />
               <AvField
@@ -152,6 +185,13 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
                 }}
               />
               <this.renderExtraRegData selectedUserType={this.state.selectedUserType} />
+              <LocMap onLocationPickEnd={this.onLocationPickEnd}/>
+              <AvField
+                name="address"
+                label={translate('global.form.address')}
+                placeholder={translate('global.form.address.placeholder')}
+                value={this.state.address}
+              />
               <ImageUpload onPreviewLoadEnd={this.imageUploadCallback} />
               <Button id="register-submit" color="primary" type="submit">
                 <Translate contentKey="register.form.button">Register</Translate>
@@ -168,10 +208,76 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
     const selectedUserType = props.selectedUserType;
     if (selectedUserType === AUTHORITIES.DOCTOR) {
       return <this.renderDoctorRegData />;
-    } else {
-      return null;
+    } else if (selectedUserType === AUTHORITIES.USER) {
+      return <this.renderPatientRegData />;
     }
+    return null;
   };
+
+  renderPatientRegData = props => {
+    const sexTypeOptions = [{ value: SEX.MALE, label: 'Male' }, { value: SEX.FEMALE, label: 'Female' }];
+    const sexTypes = sexTypeOptions.map(sexType => (
+      <option key={sexType.value} value={sexType.value}>
+        {sexType.label}
+      </option>
+    ));
+
+    const bloodGroupOptions = [{ value: BLOODGROUP.A_POSITIVE, label: 'A+' },
+                               { value: BLOODGROUP.A_NEGATIVE, label: 'A-' },
+                               { value: BLOODGROUP.B_POSITIVE, label: 'B+' },
+                               { value: BLOODGROUP.B_NEGATIVE, label: 'B-' },
+                               { value: BLOODGROUP.AB_POSITIVE, label: 'AB+' },
+                               { value: BLOODGROUP.AB_NEGATIVE, label: 'AB-' },
+                               { value: BLOODGROUP.O_NEGATIVE, label: 'O+' },
+                               { value: BLOODGROUP.O_POSITIVE, label: 'O-' }];
+    const bloodGroups = bloodGroupOptions.map(bloodGroup => (
+      <option key={bloodGroup.value} value={bloodGroup.value}>
+        {bloodGroup.label}
+      </option>
+    ));
+
+    return (
+      <div>
+        <Label>{translate('global.form.birthdate')}</Label>
+        <div>
+          <DatePicker selected={this.state.birthTimestamp} onChange={this.handleDateChange} />
+        </div>
+        <AvField
+          name="bloodGroup"
+          type="select"
+          label={translate('global.form.bloodgroup')}
+        >
+          {bloodGroups}
+        </AvField>
+        <AvField
+          name="sex"
+          type="select"
+          label={translate('global.form.sex')}
+          value={SEX.MALE}
+        >
+          {sexTypes}
+        </AvField>
+        <AvField
+          name="weightInKG"
+          label={translate('global.form.weight')}
+          placeholder={translate('global.form.weight.placeholder')}
+          validate={{
+            min: { value: 0, errorMessage: translate('global.messages.validate.weight.min') },
+            max: { value: 300, errorMessage: translate('global.messages.validate.weight.max') }
+          }}
+        />
+        <AvField
+          name="heightInInch"
+          label={translate('global.form.height')}
+          placeholder={translate('global.form.height.placeholder')}
+          validate={{
+            min: { value: 0, errorMessage: translate('global.messages.validate.height.min') },
+            max: { value: 120, errorMessage: translate('global.messages.validate.height.max') }
+          }}
+        />
+      </div>
+    );
+  }
 
   renderDoctorRegData = props => (
     <div>
@@ -199,6 +305,49 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
         name="description"
         label={translate('global.form.description')}
         placeholder={translate('global.form.description.placeholder')}
+      />
+      <AvField
+        name="degreeName"
+        label={translate('global.form.degreename')}
+        placeholder={translate('global.form.degreename.placeholder')}
+        value={'MBBS'}
+        readOnly
+      />
+      <AvField
+        name="degreeInstitute"
+        label={translate('global.form.degreeinstitute')}
+        placeholder={translate('global.form.degreeinstitute.placeholder')}
+        validate={{
+          required: { value: true, errorMessage: translate('global.messages.validate.degreeinstitute.required') }
+        }}
+      />
+      <AvField
+        name="degreeCountry"
+        label={translate('global.form.degreecountry')}
+        placeholder={translate('global.form.degreecountry.placeholder')}
+        validate={{
+          required: { value: true, errorMessage: translate('global.messages.validate.degreecountry.required') }
+        }}
+      />
+      <AvField
+        name="degreeEnrollmentYear"
+        label={translate('global.form.degreeenrollmentyear')}
+        placeholder={translate('global.form.degreeenrollmentyear.placeholder')}
+        validate={{
+          required: { value: true, errorMessage: translate('global.messages.validate.degreeenrollmentyear.required') },
+          min: { value: 1900, errorMessage: translate('global.messages.validate.degreeenrollmentyear.min') },
+          max: { value: 3000, errorMessage: translate('global.messages.validate.degreeenrollmentyear.max') }
+        }}
+      />
+      <AvField
+        name="degreePassingYear"
+        label={translate('global.form.degreepassingyear')}
+        placeholder={translate('global.form.degreepassingyear.placeholder')}
+        validate={{
+          required: { value: true, errorMessage: translate('global.messages.validate.degreepassingyear.required') },
+          min: { value: 1900, errorMessage: translate('global.messages.validate.degreepassingyear.min') },
+          max: { value: 3000, errorMessage: translate('global.messages.validate.degreepassingyear.max') }
+        }}
       />
     </div>
   );

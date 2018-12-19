@@ -52,6 +52,8 @@
       "lastname.placeholder": "Your last name",
       "phone": "Phone Number",
       "phone.placeholder": "Your phone number",
+      "address": "Address",
+      "address.placeholder": "Your address",
       "licencenumber": "Licence Number",
       "licencenumber.placeholder": "Your licence number",
       "nationalid": "National ID",
@@ -61,7 +63,25 @@
       "designation": "Designation",
       "designation.placeholder": "Your Designation",
       "description": "Tell us about yourself",
-      "description.placeholder": "About yourself"
+      "description.placeholder": "About yourself",
+      "birthdate": "Date of Birth",
+      "sex": "Sex",
+      "weight": "Weight in KG",
+      "weight.placeholder": "Your weight in KG",
+      "height": "Height in Inch",
+      "height.placeholder": "Your height in Inch",
+      "bloodgroup": "Blood Group",
+      "bloodgroup.placeholder": "Your blood group",
+      "degreename": "Degree Name",
+      "degreename.placeholder": "Your degree",
+      "degreeinstitute": "Institute",
+      "degreeinstitute.placeholder": "Please mention the institute you obtained your degree from",
+      "degreecountry": "Country",
+      "degreecountry.placeholder": "Please mention the country you obtained your degree from",
+      "degreeenrollmentyear": "Enrollment Year",
+      "degreeenrollmentyear.placeholder": "Your enrollment year",
+      "degreepassingyear": "Passing Year",
+      "degreepassingyear.placeholder": "Your passing year"
     },
     "messages": {
       "info": {
@@ -99,6 +119,36 @@
         "phone": {
           "required": "Your phone number is required.",
           "pattern": "Your phone number is invalid."
+        },
+        "firstname": {
+          "required": "Your first name is required."
+        },
+        "lastname": {
+          "required": "Your last name is required."
+        },
+        "weight": {
+          "min": "Weight can not be negetive value.",
+          "max": "Too much weight!"
+        },
+        "height": {
+          "min": "Height can not be negetive value.",
+          "max": "Too tall!"
+        },
+        "degreeinstitute": {
+          "required": "Degree institute is required."
+        },
+        "degreecountry": {
+          "required": "Degree institute is required."
+        },
+        "degreeenrollmentyear": {
+          "required": "Degree enrollment year is required.",
+          "min": "Degree enrollment year is invalid.",
+          "max": "Degree enrollment year is invalid."
+        },
+        "degreepassingyear": {
+          "required": "Degree passing year is required.",
+          "min": "Degree passing year is invalid.",
+          "max": "Degree passing year is invalid."
         }
       }
     },

@@ -12,6 +12,22 @@ export const AUTHORITIES = {
   DOCTOR: 'ROLE_DOCTOR'
 };
 
+export const SEX = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE'
+};
+
+export const BLOODGROUP = {
+  A_POSITIVE: 'A_POSITIVE',
+  A_NEGATIVE: 'A_NEGATIVE',
+  B_POSITIVE: 'B_POSITIVE',
+  B_NEGATIVE: 'B_NEGATIVE',
+  AB_POSITIVE: 'AB_POSITIVE',
+  AB_NEGATIVE: 'AB_NEGATIVE',
+  O_POSITIVE: 'O_POSITIVE',
+  O_NEGATIVE: 'O_NEGATIVE'
+};
+
 export const messages = {
   DATA_ERROR_ALERT: 'Internal Error'
 };
