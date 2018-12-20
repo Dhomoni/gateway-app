@@ -1,5 +1,6 @@
 # Dhomoni Website and Gateway App
 [![Build Status][travis-image]][travis-url]
+
 [travis-image]: https://travis-ci.com/Dhomoni/gateway-app.svg?branch=master
 [travis-url]: https://travis-ci.com/Dhomoni/gateway-app
 
