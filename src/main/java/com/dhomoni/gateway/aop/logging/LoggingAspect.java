@@ -21,6 +21,8 @@ import java.util.Arrays;
  */
 @Aspect
 public class LoggingAspect {
+	
+	/*Test comment*/
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
