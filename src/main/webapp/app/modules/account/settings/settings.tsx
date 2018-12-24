@@ -10,7 +10,7 @@ import { getSession } from 'app/shared/reducers/authentication';
 import { saveAccountSettings, reset } from './settings.reducer';
 import { AUTHORITIES, SEX, BLOODGROUP } from 'app/config/constants';
 import ImageUpload from 'app/shared/component/image-upload';
-import LocMap from 'app/shared/component/location-map';
+import PointMap from 'app/shared/component/location-map';
 import DatePicker from 'react-datepicker';
 
 export interface IUserSettingsProps extends StateProps, DispatchProps {}
@@ -27,8 +27,8 @@ export interface IUserSettingsState {
 export class SettingsPage extends React.Component<IUserSettingsProps, IUserSettingsState> {
   state: IUserSettingsState = {
     ...this.props.account,
-    lat: this.props.account.location.coordinates[0],
-    lng: this.props.account.location.coordinates[1]
+    lat: this.props.account.location === null ? PointMap.defaultProps.latlng.lat : this.props.account.location.coordinates[0],
+    lng: this.props.account.location === null ? PointMap.defaultProps.latlng.lng : this.props.account.location.coordinates[1]
   };
 
   componentDidMount() {
@@ -63,7 +63,9 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
 
   render() {
     const { account } = this.props;
-    const fileURL = 'data:' + this.state.imageContentType + ';base64,' + this.state.image;
+    const fileURL = (this.state.imageContentType && this.state.image)
+                      ? 'data:' + this.state.imageContentType + ';base64,' + this.state.image
+                      : null;
     const sexTypeOptions = [{ value: SEX.MALE, label: 'Male' }, { value: SEX.FEMALE, label: 'Female' }];
     const sexTypes = sexTypeOptions.map(sexType => (
       <option key={sexType.value} value={sexType.value}>
@@ -150,7 +152,7 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
                 ))}
               </AvField>
               <this.renderExtraRegData account={account} />
-              <LocMap
+              <PointMap
                 latlng={{ lat: this.state.lat, lng: this.state.lng }}
                 onLocationPickEnd={this.onLocationPickEnd}/>
               <AvField
@@ -173,7 +175,7 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
   renderExtraRegData = ({ account }) => {
     if (account.authorities.includes(AUTHORITIES.DOCTOR)) {
       return <this.renderDoctorRegData account={account}/>;
-    } else if (account.authorities.includes(AUTHORITIES.USER)) {
+    } else if (account.authorities.includes(AUTHORITIES.PATIENT)) {
       return <this.renderPatientRegData account={account}/>;
     }
     return null;

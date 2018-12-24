@@ -10,14 +10,14 @@ import { IRootState } from 'app/shared/reducers';
 import { handleRegister, reset } from './register.reducer';
 import { AUTHORITIES, SEX, BLOODGROUP } from 'app/config/constants';
 import ImageUpload from 'app/shared/component/image-upload';
-import LocMap from 'app/shared/component/location-map';
+import PointMap from 'app/shared/component/location-map';
 import DatePicker from 'react-datepicker';
 
 export interface IRegisterProps extends StateProps, DispatchProps {}
 
 export interface IRegisterState {
   password: string;
-  selectedUserType: string;
+  selectedUserType: string[];
   image: string;
   imageContentType: string;
   lat: number;
@@ -29,7 +29,7 @@ export interface IRegisterState {
 export class RegisterPage extends React.Component<IRegisterProps, IRegisterState> {
   state: IRegisterState = {
     password: '',
-    selectedUserType: AUTHORITIES.USER,
+    selectedUserType: [AUTHORITIES.PATIENT, AUTHORITIES.USER],
     image: '',
     imageContentType: '',
     lat: null,
@@ -46,7 +46,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
     const account = {
       ...values,
       password: this.state.password,
-      authorities: [this.state.selectedUserType],
+      authorities: this.state.selectedUserType,
       langKey: this.props.currentLocale,
       image: this.state.image,
       imageContentType: this.state.imageContentType,
@@ -78,7 +78,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
     this.setState({ password: event.target.value });
 
   onDropdownSelected = event =>
-    this.setState({ selectedUserType: event.target.value });
+    this.setState({ selectedUserType: [AUTHORITIES.USER, event.target.value] });
 
   imageUploadCallback = (data, contentType) =>
     this.setState({ image: data, imageContentType: contentType });
@@ -90,7 +90,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
     this.setState({ birthTimestamp: date.getTime() });
 
   render() {
-    const userTypeOptions = [{ value: AUTHORITIES.USER, label: 'User' }, { value: AUTHORITIES.DOCTOR, label: 'Doctor' }];
+    const userTypeOptions = [{ value: AUTHORITIES.PATIENT, label: 'User' }, { value: AUTHORITIES.DOCTOR, label: 'Doctor' }];
     const userTypes = userTypeOptions.map(userType => (
       <option key={userType.value} value={userType.value}>
         {userType.label}
@@ -109,7 +109,12 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
         <Row className="justify-content-center">
           <Col md="8">
             <AvForm id="register-form" onValidSubmit={this.handleValidSubmit}>
-              <AvField name="usertype" type="select" onChange={this.onDropdownSelected} label={translate('global.form.accounttype')}>
+              <AvField
+                name="usertype"
+                type="select"
+                onChange={this.onDropdownSelected}
+                label={translate('global.form.accounttype')}
+              >
                 {userTypes}
               </AvField>
               <AvField
@@ -185,7 +190,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
                 }}
               />
               <this.renderExtraRegData selectedUserType={this.state.selectedUserType} />
-              <LocMap onLocationPickEnd={this.onLocationPickEnd}/>
+              <PointMap onLocationPickEnd={this.onLocationPickEnd}/>
               <AvField
                 name="address"
                 label={translate('global.form.address')}
@@ -206,9 +211,9 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
 
   renderExtraRegData = props => {
     const selectedUserType = props.selectedUserType;
-    if (selectedUserType === AUTHORITIES.DOCTOR) {
+    if (selectedUserType.includes(AUTHORITIES.DOCTOR)) {
       return <this.renderDoctorRegData />;
-    } else if (selectedUserType === AUTHORITIES.USER) {
+    } else if (selectedUserType.includes(AUTHORITIES.PATIENT)) {
       return <this.renderPatientRegData />;
     }
     return null;
@@ -246,6 +251,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
           name="bloodGroup"
           type="select"
           label={translate('global.form.bloodgroup')}
+          value={BLOODGROUP.A_NEGATIVE}
         >
           {bloodGroups}
         </AvField>
