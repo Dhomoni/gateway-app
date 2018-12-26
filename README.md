@@ -1,8 +1,13 @@
 # Dhomoni Website and Gateway App
 [![Build Status][travis-image]][travis-url]
+[![Sonar Status][sonar-image]][sonar-url]
 
 [travis-image]: https://travis-ci.com/Dhomoni/gateway-app.svg?branch=master
 [travis-url]: https://travis-ci.com/Dhomoni/gateway-app
+
+[sonar-image]: https://sonarcloud.io/api/project_badges/measure?project=com.dhomoni.gateway%3Adhomoni&metric=alert_status
+[sonar-url]: https://sonarcloud.io/dashboard?id=com.dhomoni.gateway%3Adhomoni
+
 
 This application was generated using JHipster 5.6.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v5.6.1](https://www.jhipster.tech/documentation-archive/v5.6.1).
 
