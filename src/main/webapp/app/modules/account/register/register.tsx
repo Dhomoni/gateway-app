@@ -61,7 +61,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
       },
       doctorDTO: {
         ...values,
-        degrees: [{
+        professionalDegrees: [{
           name: values.degreeName,
           institute: values.degreeInstitute,
           country: values.degreeCountry,

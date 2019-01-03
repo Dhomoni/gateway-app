@@ -287,7 +287,7 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
             name="degreeName"
             label={translate('global.form.degreename')}
             placeholder={translate('global.form.degreename.placeholder')}
-            value={account.doctorDTO.degrees[0].name}
+            value={account.doctorDTO.professionalDegrees[0].name}
             readOnly
           />
           <AvField
@@ -297,7 +297,7 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
             validate={{
               required: { value: true, errorMessage: translate('global.messages.validate.degreeinstitute.required') }
             }}
-            value={account.doctorDTO.degrees[0].institute}
+            value={account.doctorDTO.professionalDegrees[0].institute}
           />
           <AvField
             name="degreeCountry"
@@ -306,7 +306,7 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
             validate={{
               required: { value: true, errorMessage: translate('global.messages.validate.degreecountry.required') }
             }}
-            value={account.doctorDTO.degrees[0].country}
+            value={account.doctorDTO.professionalDegrees[0].country}
           />
           <AvField
             name="degreeEnrollmentYear"
@@ -317,7 +317,7 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
               min: { value: 1900, errorMessage: translate('global.messages.validate.degreeenrollmentyear.min') },
               max: { value: 3000, errorMessage: translate('global.messages.validate.degreeenrollmentyear.max') }
             }}
-            value={account.doctorDTO.degrees[0].enrollmentYear}
+            value={account.doctorDTO.professionalDegrees[0].enrollmentYear}
           />
           <AvField
             name="degreePassingYear"
@@ -328,7 +328,7 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
               min: { value: 1900, errorMessage: translate('global.messages.validate.degreepassingyear.min') },
               max: { value: 3000, errorMessage: translate('global.messages.validate.degreepassingyear.max') }
             }}
-            value={account.doctorDTO.degrees[0].passingYear}
+            value={account.doctorDTO.professionalDegrees[0].passingYear}
           />
         </div>
       );
