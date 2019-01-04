@@ -1,0 +1,30 @@
+{
+  "dhomoniApp": {
+    "searchProfessionalDegree": {
+      "home": {
+        "title": "Professional Degrees",
+        "createLabel": "Create a new Professional Degree",
+        "createOrEditLabel": "Create or edit a Professional Degree"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Professional Degree {{ id }}?"
+      },
+      "detail": {
+        "title": "Professional Degree"
+      },
+      "name": "Name",
+      "institute": "Institute",
+      "country": "Country",
+      "enrollmentYear": "Enrollment Year",
+      "passingYear": "Passing Year",
+      "doctor": "Doctor"
+    }
+  },
+  "searchApp": {
+    "searchProfessionalDegree": {
+      "created": "A new Professional Degree is created with identifier {{ param }}",
+      "updated": "A Professional Degree is updated with identifier {{ param }}",
+      "deleted": "A Professional Degree is deleted with identifier {{ param }}"
+    }
+  }
+}

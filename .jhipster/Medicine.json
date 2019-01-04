@@ -1,0 +1,77 @@
+{
+    "name": "Medicine",
+    "fields": [
+        {
+            "fieldName": "tradeName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "unitQuantity",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "genericName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "chemicalName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "MedicineType",
+            "fieldValues": "TABLET,CAPSULE,SYRUP,INJECTION,INJECTION_IV,SALINE,ORAL_SALINE"
+        },
+        {
+            "fieldName": "manufacturer",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "mrp",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "indications",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "doseAndAdmin",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "preparation",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "productUrl",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "active",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20190104102624",
+    "entityTableName": "medicine",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "microserviceName": "search"
+}

@@ -1,0 +1,30 @@
+{
+  "dhomoniApp": {
+    "searchWeeklyVisitingHour": {
+      "home": {
+        "title": "Weekly Visiting Hours",
+        "createLabel": "Create a new Weekly Visiting Hour",
+        "createOrEditLabel": "Create or edit a Weekly Visiting Hour"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Weekly Visiting Hour {{ id }}?"
+      },
+      "detail": {
+        "title": "Weekly Visiting Hour"
+      },
+      "weekDay": "Week Day",
+      "startHour": "Start Hour",
+      "startMinute": "Start Minute",
+      "endHour": "End Hour",
+      "endMinute": "End Minute",
+      "chamber": "Chamber"
+    }
+  },
+  "searchApp": {
+    "searchWeeklyVisitingHour": {
+      "created": "A new Weekly Visiting Hour is created with identifier {{ param }}",
+      "updated": "A Weekly Visiting Hour is updated with identifier {{ param }}",
+      "deleted": "A Weekly Visiting Hour is deleted with identifier {{ param }}"
+    }
+  }
+}

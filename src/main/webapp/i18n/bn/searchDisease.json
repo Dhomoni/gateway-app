@@ -1,0 +1,28 @@
+{
+  "dhomoniApp": {
+    "searchDisease": {
+      "home": {
+        "title": "Diseases",
+        "createLabel": "Create a new Disease",
+        "createOrEditLabel": "Create or edit a Disease"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Disease {{ id }}?"
+      },
+      "detail": {
+        "title": "Disease"
+      },
+      "medicalName": "Medical Name",
+      "generalName": "General Name",
+      "symptoms": "Symptoms",
+      "dept": "Dept"
+    }
+  },
+  "searchApp": {
+    "searchDisease": {
+      "created": "A new Disease is created with identifier {{ param }}",
+      "updated": "A Disease is updated with identifier {{ param }}",
+      "deleted": "A Disease is deleted with identifier {{ param }}"
+    }
+  }
+}

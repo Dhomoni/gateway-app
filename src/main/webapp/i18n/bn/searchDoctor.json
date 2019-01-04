@@ -1,0 +1,41 @@
+{
+  "dhomoniApp": {
+    "searchDoctor": {
+      "home": {
+        "title": "Doctors",
+        "createLabel": "Create a new Doctor",
+        "createOrEditLabel": "Create or edit a Doctor"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Doctor {{ id }}?"
+      },
+      "detail": {
+        "title": "Doctor"
+      },
+      "registrationId": "Registration Id",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone",
+      "licenceNumber": "Licence Number",
+      "nationalId": "National Id",
+      "passportNo": "Passport No",
+      "type": "Type",
+      "designation": "Designation",
+      "description": "Description",
+      "address": "Address",
+      "image": "Image",
+      "activated": "Activated",
+      "medicalDepartment": "Medical Department",
+      "chambers": "Chambers",
+      "professionalDegrees": "Professional Degrees"
+    }
+  },
+  "searchApp": {
+    "searchDoctor": {
+      "created": "A new Doctor is created with identifier {{ param }}",
+      "updated": "A Doctor is updated with identifier {{ param }}",
+      "deleted": "A Doctor is deleted with identifier {{ param }}"
+    }
+  }
+}

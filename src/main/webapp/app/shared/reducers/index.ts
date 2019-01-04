@@ -12,6 +12,38 @@ import activate, { ActivateState } from 'app/modules/account/activate/activate.r
 import password, { PasswordState } from 'app/modules/account/password/password.reducer';
 import settings, { SettingsState } from 'app/modules/account/settings/settings.reducer';
 import passwordReset, { PasswordResetState } from 'app/modules/account/password-reset/password-reset.reducer';
+// prettier-ignore
+import doctor, {
+  DoctorState
+} from 'app/entities/search/doctor/doctor.reducer';
+// prettier-ignore
+import medicalDepartment, {
+  MedicalDepartmentState
+} from 'app/entities/search/medical-department/medical-department.reducer';
+// prettier-ignore
+import disease, {
+  DiseaseState
+} from 'app/entities/search/disease/disease.reducer';
+// prettier-ignore
+import chamber, {
+  ChamberState
+} from 'app/entities/search/chamber/chamber.reducer';
+// prettier-ignore
+import weeklyVisitingHour, {
+  WeeklyVisitingHourState
+} from 'app/entities/search/weekly-visiting-hour/weekly-visiting-hour.reducer';
+// prettier-ignore
+import professionalDegree, {
+  ProfessionalDegreeState
+} from 'app/entities/search/professional-degree/professional-degree.reducer';
+// prettier-ignore
+import patient, {
+  PatientState
+} from 'app/entities/search/patient/patient.reducer';
+// prettier-ignore
+import medicine, {
+  MedicineState
+} from 'app/entities/search/medicine/medicine.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -25,6 +57,14 @@ export interface IRootState {
   readonly passwordReset: PasswordResetState;
   readonly password: PasswordState;
   readonly settings: SettingsState;
+  readonly doctor: DoctorState;
+  readonly medicalDepartment: MedicalDepartmentState;
+  readonly disease: DiseaseState;
+  readonly chamber: ChamberState;
+  readonly weeklyVisitingHour: WeeklyVisitingHourState;
+  readonly professionalDegree: ProfessionalDegreeState;
+  readonly patient: PatientState;
+  readonly medicine: MedicineState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -40,6 +80,14 @@ const rootReducer = combineReducers<IRootState>({
   passwordReset,
   password,
   settings,
+  doctor,
+  medicalDepartment,
+  disease,
+  chamber,
+  weeklyVisitingHour,
+  professionalDegree,
+  patient,
+  medicine,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });

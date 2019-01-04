@@ -1,0 +1,30 @@
+{
+    "name": "MedicalDepartment",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "diseases",
+            "otherEntityName": "disease",
+            "otherEntityRelationshipName": "dept"
+        }
+    ],
+    "changelogDate": "20190104102618",
+    "entityTableName": "medical_department",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "microserviceName": "search"
+}

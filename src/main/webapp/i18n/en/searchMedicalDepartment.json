@@ -1,0 +1,26 @@
+{
+  "dhomoniApp": {
+    "searchMedicalDepartment": {
+      "home": {
+        "title": "Medical Departments",
+        "createLabel": "Create a new Medical Department",
+        "createOrEditLabel": "Create or edit a Medical Department"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Medical Department {{ id }}?"
+      },
+      "detail": {
+        "title": "Medical Department"
+      },
+      "name": "Name",
+      "diseases": "Diseases"
+    }
+  },
+  "searchApp": {
+    "searchMedicalDepartment": {
+      "created": "A new Medical Department is created with identifier {{ param }}",
+      "updated": "A Medical Department is updated with identifier {{ param }}",
+      "deleted": "A Medical Department is deleted with identifier {{ param }}"
+    }
+  }
+}

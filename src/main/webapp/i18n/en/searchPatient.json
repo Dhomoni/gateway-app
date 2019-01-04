@@ -1,0 +1,37 @@
+{
+  "dhomoniApp": {
+    "searchPatient": {
+      "home": {
+        "title": "Patients",
+        "createLabel": "Create a new Patient",
+        "createOrEditLabel": "Create or edit a Patient"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Patient {{ id }}?"
+      },
+      "detail": {
+        "title": "Patient"
+      },
+      "registrationId": "Registration Id",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone",
+      "sex": "Sex",
+      "birthTimestamp": "Birth Timestamp",
+      "bloodGroup": "Blood Group",
+      "weightInKG": "Weight In KG",
+      "heightInInch": "Height In Inch",
+      "address": "Address",
+      "image": "Image",
+      "activated": "Activated"
+    }
+  },
+  "searchApp": {
+    "searchPatient": {
+      "created": "A new Patient is created with identifier {{ param }}",
+      "updated": "A Patient is updated with identifier {{ param }}",
+      "deleted": "A Patient is deleted with identifier {{ param }}"
+    }
+  }
+}

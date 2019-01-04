@@ -1,0 +1,14 @@
+{
+  "dhomoniApp": {
+    "MedicineType": {
+      "null": "",
+      "TABLET": "TABLET",
+      "CAPSULE": "CAPSULE",
+      "SYRUP": "SYRUP",
+      "INJECTION": "INJECTION",
+      "INJECTION_IV": "INJECTION_IV",
+      "SALINE": "SALINE",
+      "ORAL_SALINE": "ORAL_SALINE"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+    "name": "Disease",
+    "fields": [
+        {
+            "fieldName": "medicalName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "generalName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "symptoms",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "dept",
+            "otherEntityName": "medicalDepartment",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190104102619",
+    "entityTableName": "disease",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "microserviceName": "search"
+}

@@ -1,0 +1,29 @@
+{
+  "dhomoniApp": {
+    "searchChamber": {
+      "home": {
+        "title": "Chambers",
+        "createLabel": "Create a new Chamber",
+        "createOrEditLabel": "Create or edit a Chamber"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Chamber {{ id }}?"
+      },
+      "detail": {
+        "title": "Chamber"
+      },
+      "address": "Address",
+      "phone": "Phone",
+      "fee": "Fee",
+      "doctor": "Doctor",
+      "weeklyVisitingHours": "Weekly Visiting Hours"
+    }
+  },
+  "searchApp": {
+    "searchChamber": {
+      "created": "A new Chamber is created with identifier {{ param }}",
+      "updated": "A Chamber is updated with identifier {{ param }}",
+      "deleted": "A Chamber is deleted with identifier {{ param }}"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "dhomoniApp": {
+    "DoctorType": {
+      "null": "",
+      "PHYSICIAN": "PHYSICIAN",
+      "SURGEON": "SURGEON"
+    }
+  }
+}

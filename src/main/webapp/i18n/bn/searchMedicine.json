@@ -1,0 +1,36 @@
+{
+  "dhomoniApp": {
+    "searchMedicine": {
+      "home": {
+        "title": "Medicines",
+        "createLabel": "Create a new Medicine",
+        "createOrEditLabel": "Create or edit a Medicine"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Medicine {{ id }}?"
+      },
+      "detail": {
+        "title": "Medicine"
+      },
+      "tradeName": "Trade Name",
+      "unitQuantity": "Unit Quantity",
+      "genericName": "Generic Name",
+      "chemicalName": "Chemical Name",
+      "type": "Type",
+      "manufacturer": "Manufacturer",
+      "mrp": "Mrp",
+      "indications": "Indications",
+      "doseAndAdmin": "Dose And Admin",
+      "preparation": "Preparation",
+      "productUrl": "Product Url",
+      "active": "Active"
+    }
+  },
+  "searchApp": {
+    "searchMedicine": {
+      "created": "A new Medicine is created with identifier {{ param }}",
+      "updated": "A Medicine is updated with identifier {{ param }}",
+      "deleted": "A Medicine is deleted with identifier {{ param }}"
+    }
+  }
+}
