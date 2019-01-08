@@ -117,6 +117,8 @@ export default (state: DoctorState = initialState, action): DoctorState => {
   }
 };
 
+const searchApiUrl = 'search/api/doctors';
+
 const apiUrl = 'search/api/doctors';
 
 // Actions
