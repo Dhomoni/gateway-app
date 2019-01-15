@@ -1,36 +1,176 @@
 import './home.scss';
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Translate } from 'react-jhipster';
+import { Link, RouteComponentProps } from 'react-router-dom';
+import { Translate, openFile, byteSize, Translate, ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
+import { Row, Col, Alert, Button, Table } from 'reactstrap';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
-export interface IHomeProp extends StateProps, DispatchProps {}
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { searchEntities, reset } from 'app/entities/search/doctor/doctor.reducer';
+import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
+import InfiniteScroll from 'react-infinite-scroller';
 
-export class Home extends React.Component<IHomeProp> {
+export interface IHomeProp extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+
+export type IHomeState = IPaginationBaseState;
+
+export class Home extends React.Component<IHomeProp, IHomeState> {
+  state: IHomeState = {
+    ...getSortState(this.props.location, ITEMS_PER_PAGE)
+  };
   componentDidMount() {
+    this.reset();
     this.props.getSession();
   }
 
+  reset = () => {
+    this.props.reset();
+    this.setState({
+      activePage: 1,
+      sort: 'firstName'
+    }, () => {
+      this.searchEntities();
+    });
+  };
+
+  handleLoadMore = () => {
+    if (window.pageYOffset > 0) {
+      this.setState({ activePage: this.state.activePage + 1 }, () => this.getEntities());
+    }
+  };
+
+  sort = prop => () => {
+    this.setState(
+      {
+        order: this.state.order === 'asc' ? 'desc' : 'asc',
+        sort: prop
+      },
+      () => {
+        this.reset();
+      }
+    );
+  };
+
+  searchEntities = () => {
+    const { activePage, itemsPerPage, sort, order } = this.state;
+    this.props.searchEntities('Arhan', activePage - 1, itemsPerPage, `${sort},${order}`);
+  };
+
   render() {
-    const { account } = this.props;
+    const { doctorList, account, match } = this.props;
+
     return (
+      <div>
+        <h2 id="doctor-heading">
+          <Translate contentKey="dhomoniApp.searchDoctor.home.title">Search Doctors</Translate>
+        </h2>
+        <div className="table-responsive">
+          <InfiniteScroll
+            pageStart={this.state.activePage}
+            loadMore={this.handleLoadMore}
+            hasMore={this.state.activePage - 1 < this.props.links.next}
+            loader={<div className="loader">Loading ...</div>}
+            threshold={0}
+            initialLoad={false}
+          >
+            <Table responsive>
+              <thead>
+                <tr>
+                  <th className="hand" onClick={this.sort('firstName')}>
+                    <Translate contentKey="dhomoniApp.searchDoctor.firstName">First Name</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('lastName')}>
+                    <Translate contentKey="dhomoniApp.searchDoctor.lastName">Last Name</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('email')}>
+                    <Translate contentKey="dhomoniApp.searchDoctor.email">Email</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('phone')}>
+                    <Translate contentKey="dhomoniApp.searchDoctor.phone">Phone</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('type')}>
+                    <Translate contentKey="dhomoniApp.searchDoctor.type">Type</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('designation')}>
+                    <Translate contentKey="dhomoniApp.searchDoctor.designation">Designation</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('image')}>
+                    <Translate contentKey="dhomoniApp.searchDoctor.image">Image</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th>
+                    <Translate contentKey="dhomoniApp.searchDoctor.medicalDepartment">Medical Department</Translate>{' '}
+                    <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th />
+                </tr>
+              </thead>
+              <tbody>
+                {doctorList.map((doctor, i) => (
+                  <tr key={`entity-${i}`}>
+                    <td>{doctor.firstName}</td>
+                    <td>{doctor.lastName}</td>
+                    <td>{doctor.email}</td>
+                    <td>{doctor.phone}</td>
+                    <td>
+                      <Translate contentKey={`dhomoniApp.DoctorType.${doctor.type}`} />
+                    </td>
+                    <td>{doctor.designation}</td>
+                    <td>
+                      {doctor.image ? (
+                        <div>
+                          <a onClick={openFile(doctor.imageContentType, doctor.image)}>
+                            <img src={`data:${doctor.imageContentType};base64,${doctor.image}`} style={{ maxHeight: '30px' }} />
+                            &nbsp;
+                          </a>
+                          <span>
+                            {doctor.imageContentType}, {byteSize(doctor.image)}
+                          </span>
+                        </div>
+                      ) : null}
+                    </td>
+                    <td>
+                      {doctor.medicalDepartment ? (
+                        <Link to={`medical-department/${doctor.medicalDepartment.id}`}>{doctor.medicalDepartment.id}</Link>
+                      ) : (
+                        ''
+                      )}
+                    </td>
+                    <td className="text-right">
+                      <div className="btn-group flex-btn-group-container">
+                        <Button tag={Link} to={`${match.url}/${doctor.id}`} color="info" size="sm">
+                          <FontAwesomeIcon icon="eye" />{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.view">View</Translate>
+                          </span>
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </InfiniteScroll>
+        </div>
+      </div>
+    );
+
+{/*    return (
       <Row>
         <Col md="9">
-{/*
+
           <h2>
             <Translate contentKey="home.title">Welcome, Java Hipster!</Translate>
           </h2>
           <p className="lead">
             <Translate contentKey="home.subtitle">This is your homepage</Translate>
           </p>
-*/}
+
           { account && account.login ? this.renderLoggedInDataHomePageData(account) : this.renderLoggedOutHomePageData(account) }
-{/*
+
           <p>
             <Translate contentKey="home.question">If you have any question on JHipster:</Translate>
           </p>
@@ -70,13 +210,14 @@ export class Home extends React.Component<IHomeProp> {
             </a>
             !
           </p>
-*/}
+
         </Col>
         <Col md="3" className="pad">
           <span className="hipster rounded" />
         </Col>
       </Row>
     );
+*/}
   }
 
   renderLoggedOutHomePageData = ({ account }) =>
@@ -109,19 +250,31 @@ export class Home extends React.Component<IHomeProp> {
       <div>
         <Alert color="success">
           <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>
-            You are logged in as user {account.login}.
+            Welcome, {account.login}!
           </Translate>
         </Alert>
       </div>
     );
 }
 
-const mapStateToProps = storeState => ({
-  account: storeState.authentication.account,
-  isAuthenticated: storeState.authentication.isAuthenticated
+// const mapStateToProps = storeState => ({
+//   account: storeState.authentication.account,
+//   isAuthenticated: storeState.authentication.isAuthenticated
+// });
+
+const mapStateToProps = ({ authentication, doctor }: IRootState) => ({
+  account: authentication.account,
+  isAuthenticated: authentication.isAuthenticated,
+  doctorList: doctor.entities,
+  totalItems: doctor.totalItems,
+  links: doctor.links
 });
 
-const mapDispatchToProps = { getSession };
+const mapDispatchToProps = {
+  getSession,
+  searchEntities,
+  reset
+};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

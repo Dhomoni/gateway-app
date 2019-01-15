@@ -14,6 +14,7 @@ import { IDoctor, defaultValue } from 'app/shared/model/search/doctor.model';
 
 export const ACTION_TYPES = {
   FETCH_DOCTOR_LIST: 'doctor/FETCH_DOCTOR_LIST',
+  SEARCH_DOCTOR_LIST: 'doctor/SEARCH_DOCTOR_LIST',
   FETCH_DOCTOR: 'doctor/FETCH_DOCTOR',
   CREATE_DOCTOR: 'doctor/CREATE_DOCTOR',
   UPDATE_DOCTOR: 'doctor/UPDATE_DOCTOR',
@@ -40,6 +41,7 @@ export type DoctorState = Readonly<typeof initialState>;
 export default (state: DoctorState = initialState, action): DoctorState => {
   switch (action.type) {
     case REQUEST(ACTION_TYPES.FETCH_DOCTOR_LIST):
+    case REQUEST(ACTION_TYPES.SEARCH_DOCTOR_LIST):
     case REQUEST(ACTION_TYPES.FETCH_DOCTOR):
       return {
         ...state,
@@ -57,6 +59,7 @@ export default (state: DoctorState = initialState, action): DoctorState => {
         updating: true
       };
     case FAILURE(ACTION_TYPES.FETCH_DOCTOR_LIST):
+    case FAILURE(ACTION_TYPES.SEARCH_DOCTOR_LIST):
     case FAILURE(ACTION_TYPES.FETCH_DOCTOR):
     case FAILURE(ACTION_TYPES.CREATE_DOCTOR):
     case FAILURE(ACTION_TYPES.UPDATE_DOCTOR):
@@ -69,6 +72,7 @@ export default (state: DoctorState = initialState, action): DoctorState => {
         errorMessage: action.payload
       };
     case SUCCESS(ACTION_TYPES.FETCH_DOCTOR_LIST):
+    case SUCCESS(ACTION_TYPES.SEARCH_DOCTOR_LIST):
       const links = parseHeaderForLinks(action.payload.headers.link);
       return {
         ...state,
@@ -117,11 +121,18 @@ export default (state: DoctorState = initialState, action): DoctorState => {
   }
 };
 
-const searchApiUrl = 'search/api/doctors';
-
+const searchApiUrl = 'search/api/_search/doctors';
 const apiUrl = 'search/api/doctors';
 
 // Actions
+
+export const searchEntities: ICrudGetAllAction<IDoctor> = (query, page, size, sort) => {
+  const requestUrl = `${searchApiUrl}?query=${query}${sort ? `&page=${page}&size=${size}&sort=${sort}` : ''}`;
+  return {
+    type: ACTION_TYPES.FETCH_DOCTOR_LIST,
+    payload: axios.get<IDoctor>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+  };
+};
 
 export const getEntities: ICrudGetAllAction<IDoctor> = (page, size, sort) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
