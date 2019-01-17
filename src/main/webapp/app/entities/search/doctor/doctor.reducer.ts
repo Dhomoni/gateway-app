@@ -4,6 +4,7 @@ import {
   loadMoreDataWhenScrolled,
   ICrudGetAction,
   ICrudGetAllAction,
+  ICrudSearchAction,
   ICrudPutAction,
   ICrudDeleteAction
 } from 'react-jhipster';
@@ -14,7 +15,7 @@ import { IDoctor, defaultValue } from 'app/shared/model/search/doctor.model';
 
 export const ACTION_TYPES = {
   FETCH_DOCTOR_LIST: 'doctor/FETCH_DOCTOR_LIST',
-  SEARCH_DOCTOR_LIST: 'doctor/SEARCH_DOCTOR_LIST',
+  SEARCH_DOCTORS: 'doctor/SEARCH_DOCTORS',
   FETCH_DOCTOR: 'doctor/FETCH_DOCTOR',
   CREATE_DOCTOR: 'doctor/CREATE_DOCTOR',
   UPDATE_DOCTOR: 'doctor/UPDATE_DOCTOR',
@@ -41,7 +42,7 @@ export type DoctorState = Readonly<typeof initialState>;
 export default (state: DoctorState = initialState, action): DoctorState => {
   switch (action.type) {
     case REQUEST(ACTION_TYPES.FETCH_DOCTOR_LIST):
-    case REQUEST(ACTION_TYPES.SEARCH_DOCTOR_LIST):
+    case REQUEST(ACTION_TYPES.SEARCH_DOCTORS):
     case REQUEST(ACTION_TYPES.FETCH_DOCTOR):
       return {
         ...state,
@@ -59,7 +60,7 @@ export default (state: DoctorState = initialState, action): DoctorState => {
         updating: true
       };
     case FAILURE(ACTION_TYPES.FETCH_DOCTOR_LIST):
-    case FAILURE(ACTION_TYPES.SEARCH_DOCTOR_LIST):
+    case FAILURE(ACTION_TYPES.SEARCH_DOCTORS):
     case FAILURE(ACTION_TYPES.FETCH_DOCTOR):
     case FAILURE(ACTION_TYPES.CREATE_DOCTOR):
     case FAILURE(ACTION_TYPES.UPDATE_DOCTOR):
@@ -72,7 +73,7 @@ export default (state: DoctorState = initialState, action): DoctorState => {
         errorMessage: action.payload
       };
     case SUCCESS(ACTION_TYPES.FETCH_DOCTOR_LIST):
-    case SUCCESS(ACTION_TYPES.SEARCH_DOCTOR_LIST):
+    case SUCCESS(ACTION_TYPES.SEARCH_DOCTORS):
       const links = parseHeaderForLinks(action.payload.headers.link);
       return {
         ...state,
@@ -126,11 +127,11 @@ const apiUrl = 'search/api/doctors';
 
 // Actions
 
-export const searchEntities: ICrudGetAllAction<IDoctor> = (query, page, size, sort) => {
-  const requestUrl = `${searchApiUrl}?query=${query}${sort ? `&page=${page}&size=${size}&sort=${sort}` : ''}`;
+export const searchEntities = (search, page, size) => {
+  const requestUrl = `${searchApiUrl}?query=${search}&page=${page}&size=${size}`;
   return {
-    type: ACTION_TYPES.FETCH_DOCTOR_LIST,
-    payload: axios.get<IDoctor>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+    type: ACTION_TYPES.SEARCH_DOCTORS,
+    payload: axios.get<IDoctor>(`${requestUrl}&cacheBuster=${new Date().getTime()}`)
   };
 };
 

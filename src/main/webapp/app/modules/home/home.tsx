@@ -2,13 +2,14 @@ import './home.scss';
 
 import React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Translate, openFile, byteSize, Translate, ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
+import { Translate, translate, openFile, byteSize, ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { Row, Col, Alert, Button, Table } from 'reactstrap';
+import { Row, Col, Alert, Button, Table, InputGroup, FormGroup, InputGroupAddon, Input, Form } from 'reactstrap';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 
+import { AvForm, AvField, AvGroup } from 'availity-reactstrap-validation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { searchEntities, reset } from 'app/entities/search/doctor/doctor.reducer';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
@@ -16,12 +17,16 @@ import InfiniteScroll from 'react-infinite-scroller';
 
 export interface IHomeProp extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export type IHomeState = IPaginationBaseState;
+export interface IHomeState extends IPaginationBaseState {
+    query: string;
+}
 
 export class Home extends React.Component<IHomeProp, IHomeState> {
   state: IHomeState = {
-    ...getSortState(this.props.location, ITEMS_PER_PAGE)
+    ...getSortState(this.props.location, ITEMS_PER_PAGE),
+    query: '*'
   };
+
   componentDidMount() {
     this.reset();
     this.props.getSession();
@@ -29,35 +34,27 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
 
   reset = () => {
     this.props.reset();
-    this.setState({
-      activePage: 1,
-      sort: 'firstName'
-    }, () => {
-      this.searchEntities();
-    });
+    this.setState({ activePage: 1 }, () => this.searchEntities(this.state.query));
   };
+
+  handleValidSubmit = event => {
+    this.reset();
+    event.preventDefault();
+  }
+
+  setQuery = event => {
+    this.setState({ query: event.target.value });
+  }
 
   handleLoadMore = () => {
     if (window.pageYOffset > 0) {
-      this.setState({ activePage: this.state.activePage + 1 }, () => this.getEntities());
+      this.setState({ activePage: this.state.activePage + 1 }, () => this.searchEntities(this.state.query));
     }
   };
 
-  sort = prop => () => {
-    this.setState(
-      {
-        order: this.state.order === 'asc' ? 'desc' : 'asc',
-        sort: prop
-      },
-      () => {
-        this.reset();
-      }
-    );
-  };
-
-  searchEntities = () => {
-    const { activePage, itemsPerPage, sort, order } = this.state;
-    this.props.searchEntities('Arhan', activePage - 1, itemsPerPage, `${sort},${order}`);
+  searchEntities = query => {
+    const { activePage, itemsPerPage } = this.state;
+    this.props.searchEntities(query, activePage - 1, itemsPerPage);
   };
 
   render() {
@@ -66,8 +63,18 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
     return (
       <div>
         <h2 id="doctor-heading">
-          <Translate contentKey="dhomoniApp.searchDoctor.home.title">Search Doctors</Translate>
+          <Translate contentKey="dhomoniApp.searchDoctor.home.title">Doctors</Translate>
         </h2>
+        <Form id="register-form" onSubmit={this.handleValidSubmit}>
+          <FormGroup row>
+            <Col sm="5">
+              <Input name="query" onChange={this.setQuery} placeholder={translate('home.query.placeholder')}/>
+            </Col>
+            <Button color="primary" type="submit">
+              <FontAwesomeIcon icon="search" />
+            </Button>
+          </FormGroup>
+        </Form>
         <div className="table-responsive">
           <InfiniteScroll
             pageStart={this.state.activePage}
@@ -80,30 +87,29 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
             <Table responsive>
               <thead>
                 <tr>
-                  <th className="hand" onClick={this.sort('firstName')}>
-                    <Translate contentKey="dhomoniApp.searchDoctor.firstName">First Name</Translate> <FontAwesomeIcon icon="sort" />
+                  <th className="hand">
+                    <Translate contentKey="dhomoniApp.searchDoctor.firstName">First Name</Translate>
                   </th>
-                  <th className="hand" onClick={this.sort('lastName')}>
-                    <Translate contentKey="dhomoniApp.searchDoctor.lastName">Last Name</Translate> <FontAwesomeIcon icon="sort" />
+                  <th className="hand">
+                    <Translate contentKey="dhomoniApp.searchDoctor.lastName">Last Name</Translate>
                   </th>
-                  <th className="hand" onClick={this.sort('email')}>
-                    <Translate contentKey="dhomoniApp.searchDoctor.email">Email</Translate> <FontAwesomeIcon icon="sort" />
+                  <th className="hand">
+                    <Translate contentKey="dhomoniApp.searchDoctor.email">Email</Translate>
                   </th>
-                  <th className="hand" onClick={this.sort('phone')}>
-                    <Translate contentKey="dhomoniApp.searchDoctor.phone">Phone</Translate> <FontAwesomeIcon icon="sort" />
+                  <th className="hand">
+                    <Translate contentKey="dhomoniApp.searchDoctor.phone">Phone</Translate>
                   </th>
-                  <th className="hand" onClick={this.sort('type')}>
-                    <Translate contentKey="dhomoniApp.searchDoctor.type">Type</Translate> <FontAwesomeIcon icon="sort" />
+                  <th className="hand">
+                    <Translate contentKey="dhomoniApp.searchDoctor.type">Type</Translate>
                   </th>
-                  <th className="hand" onClick={this.sort('designation')}>
-                    <Translate contentKey="dhomoniApp.searchDoctor.designation">Designation</Translate> <FontAwesomeIcon icon="sort" />
+                  <th className="hand">
+                    <Translate contentKey="dhomoniApp.searchDoctor.designation">Designation</Translate>
                   </th>
-                  <th className="hand" onClick={this.sort('image')}>
-                    <Translate contentKey="dhomoniApp.searchDoctor.image">Image</Translate> <FontAwesomeIcon icon="sort" />
+                  <th className="hand">
+                    <Translate contentKey="dhomoniApp.searchDoctor.image">Image</Translate>
                   </th>
                   <th>
                     <Translate contentKey="dhomoniApp.searchDoctor.medicalDepartment">Medical Department</Translate>{' '}
-                    <FontAwesomeIcon icon="sort" />
                   </th>
                   <th />
                 </tr>
