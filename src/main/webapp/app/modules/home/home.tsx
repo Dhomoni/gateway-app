@@ -1,4 +1,4 @@
-import './home.scss';
+ import './home.scss';
 
 import React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
@@ -59,7 +59,7 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
 
   render() {
     const { doctorList, account, match } = this.props;
-
+    console.log(JSON.stringify(doctorList));
     return (
       <div>
         <h2 id="doctor-heading">
@@ -139,11 +139,7 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
                       ) : null}
                     </td>
                     <td>
-                      {doctor.medicalDepartment ? (
-                        <Link to={`medical-department/${doctor.medicalDepartment.id}`}>{doctor.medicalDepartment.id}</Link>
-                      ) : (
-                        ''
-                      )}
+                      {doctor.medicalDepartment ? doctor.medicalDepartment.name : ''}
                     </td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
