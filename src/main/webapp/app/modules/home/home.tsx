@@ -59,7 +59,6 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
 
   render() {
     const { doctorList, account, match } = this.props;
-    console.log(JSON.stringify(doctorList));
     return (
       <div>
         <h2 id="doctor-heading">
