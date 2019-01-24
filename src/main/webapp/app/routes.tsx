@@ -8,7 +8,7 @@ import Activate from 'app/modules/account/activate/activate';
 import PasswordResetInit from 'app/modules/account/password-reset/init/password-reset-init';
 import PasswordResetFinish from 'app/modules/account/password-reset/finish/password-reset-finish';
 import Logout from 'app/modules/login/logout';
-import Home from 'app/modules/home/home';
+// import Home from 'app/modules/home/home';
 import Entities from 'app/entities';
 import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
@@ -24,6 +24,11 @@ const Admin = Loadable({
   loader: () => import(/* webpackChunkName: "administration" */ 'app/modules/administration'),
   loading: () => <div>loading ...</div>
 });
+
+const Home = Loadable({
+    loader: () => import(/* webpackChunkName: "home" */ 'app/modules/home'),
+    loading: () => <div>loading ...</div>
+  });
 // tslint:enable
 
 const Routes = () => (
