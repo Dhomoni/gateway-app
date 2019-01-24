@@ -59,11 +59,9 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
 
   render() {
     const { doctorList, account, match } = this.props;
+    console.log(JSON.stringify(doctorList));
     return (
       <div>
-        <h2 id="doctor-heading">
-          <Translate contentKey="dhomoniApp.searchDoctor.home.title">Doctors</Translate>
-        </h2>
         <Form id="register-form" onSubmit={this.handleValidSubmit}>
           <FormGroup row>
             <Col sm="5">
