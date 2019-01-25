@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
 import { IDoctor } from 'app/shared/model/search/doctor.model';
+import { searchEntity, reset } from './home.reducer';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
@@ -15,13 +16,11 @@ export interface IDoctorDetailProps extends StateProps , DispatchProps, RouteCom
 
 export class DoctorDetail extends React.Component<IDoctorDetailProps> {
   componentDidMount() {
-//    this.props.getEntity(this.props.match.params.id);
+    this.props.searchEntity(this.props.match.params.id);
   }
 
   render() {
-    const { doctorList } = this.props;
-    const id = parseInt(this.props.match.params.id, 10);
-    const doctorEntity = doctorList.find(doctor => doctor.id === id);
+    const { doctorEntity } = this.props;
     return (
       <Row>
         <Col md="8">
@@ -129,16 +128,10 @@ export class DoctorDetail extends React.Component<IDoctorDetailProps> {
             </dt>
             <dd>{doctorEntity.medicalDepartment ? doctorEntity.medicalDepartment.id : ''}</dd>
           </dl>
-          <Button tag={Link} to="/entity/doctor" replace color="info">
+          <Button tag={Link} to="/" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
-            </span>
-          </Button>&nbsp;
-          <Button tag={Link} to={`/entity/doctor/${doctorEntity.id}/edit`} replace color="primary">
-            <FontAwesomeIcon icon="pencil-alt" />{' '}
-            <span className="d-none d-md-inline">
-              <Translate contentKey="entity.action.edit">Edit</Translate>
             </span>
           </Button>
         </Col>
@@ -147,10 +140,11 @@ export class DoctorDetail extends React.Component<IDoctorDetailProps> {
   }
 }
 
-const mapStateToProps = ({ doctor }: IRootState) => ({
-  doctorList: doctor.entities
+const mapStateToProps = ({ home }: IRootState) => ({
+  doctorEntity: home.entity
 });
-const mapDispatchToProps = {};
+
+const mapDispatchToProps = { searchEntity, reset };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

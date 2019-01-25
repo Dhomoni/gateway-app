@@ -11,7 +11,7 @@ import { getSession } from 'app/shared/reducers/authentication';
 
 import { AvForm, AvField, AvGroup } from 'availity-reactstrap-validation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { searchEntities, reset } from 'app/entities/search/doctor/doctor.reducer';
+import { searchEntities, reset } from './home.reducer';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import InfiniteScroll from 'react-infinite-scroller';
 
@@ -174,12 +174,12 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
   }
 }
 
-const mapStateToProps = ({ authentication, doctor }: IRootState) => ({
+const mapStateToProps = ({ authentication, home }: IRootState) => ({
   account: authentication.account,
   isAuthenticated: authentication.isAuthenticated,
-  doctorList: doctor.entities,
-  totalItems: doctor.totalItems,
-  links: doctor.links
+  doctorList: home.entities,
+  totalItems: home.totalItems,
+  links: home.links
 });
 
 const mapDispatchToProps = {

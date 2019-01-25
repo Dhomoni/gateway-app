@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux';
 import { loadingBarReducer as loadingBar } from 'react-redux-loading-bar';
-
 import locale, { LocaleState } from './locale';
 import authentication, { AuthenticationState } from './authentication';
 import applicationProfile, { ApplicationProfileState } from './application-profile';
-
 import administration, { AdministrationState } from 'app/modules/administration/administration.reducer';
 import userManagement, { UserManagementState } from 'app/modules/administration/user-management/user-management.reducer';
 import register, { RegisterState } from 'app/modules/account/register/register.reducer';
@@ -12,38 +10,15 @@ import activate, { ActivateState } from 'app/modules/account/activate/activate.r
 import password, { PasswordState } from 'app/modules/account/password/password.reducer';
 import settings, { SettingsState } from 'app/modules/account/settings/settings.reducer';
 import passwordReset, { PasswordResetState } from 'app/modules/account/password-reset/password-reset.reducer';
-// prettier-ignore
-import doctor, {
-  DoctorState
-} from 'app/entities/search/doctor/doctor.reducer';
-// prettier-ignore
-import medicalDepartment, {
-  MedicalDepartmentState
-} from 'app/entities/search/medical-department/medical-department.reducer';
-// prettier-ignore
-import disease, {
-  DiseaseState
-} from 'app/entities/search/disease/disease.reducer';
-// prettier-ignore
-import chamber, {
-  ChamberState
-} from 'app/entities/search/chamber/chamber.reducer';
-// prettier-ignore
-import weeklyVisitingHour, {
-  WeeklyVisitingHourState
-} from 'app/entities/search/weekly-visiting-hour/weekly-visiting-hour.reducer';
-// prettier-ignore
-import professionalDegree, {
-  ProfessionalDegreeState
-} from 'app/entities/search/professional-degree/professional-degree.reducer';
-// prettier-ignore
-import patient, {
-  PatientState
-} from 'app/entities/search/patient/patient.reducer';
-// prettier-ignore
-import medicine, {
-  MedicineState
-} from 'app/entities/search/medicine/medicine.reducer';
+import doctor, { DoctorState } from 'app/entities/search/doctor/doctor.reducer';
+import home, { HomeState } from 'app/modules/home/home.reducer';
+import medicalDepartment, { MedicalDepartmentState } from 'app/entities/search/medical-department/medical-department.reducer';
+import disease, { DiseaseState } from 'app/entities/search/disease/disease.reducer';
+import chamber, { ChamberState } from 'app/entities/search/chamber/chamber.reducer';
+import weeklyVisitingHour, { WeeklyVisitingHourState } from 'app/entities/search/weekly-visiting-hour/weekly-visiting-hour.reducer';
+import professionalDegree, { ProfessionalDegreeState } from 'app/entities/search/professional-degree/professional-degree.reducer';
+import patient, { PatientState } from 'app/entities/search/patient/patient.reducer';
+import medicine, { MedicineState } from 'app/entities/search/medicine/medicine.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -58,6 +33,7 @@ export interface IRootState {
   readonly password: PasswordState;
   readonly settings: SettingsState;
   readonly doctor: DoctorState;
+  readonly home: HomeState;
   readonly medicalDepartment: MedicalDepartmentState;
   readonly disease: DiseaseState;
   readonly chamber: ChamberState;
@@ -81,6 +57,7 @@ const rootReducer = combineReducers<IRootState>({
   password,
   settings,
   doctor,
+  home,
   medicalDepartment,
   disease,
   chamber,
