@@ -1,4 +1,4 @@
- import './home.scss';
+import './home.scss';
 
 import React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
@@ -18,7 +18,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 export interface IHomeProp extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export interface IHomeState extends IPaginationBaseState {
-    query: string;
+  query: string;
 }
 
 export class Home extends React.Component<IHomeProp, IHomeState> {
@@ -40,11 +40,11 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
   handleValidSubmit = event => {
     this.reset();
     event.preventDefault();
-  }
+  };
 
   setQuery = event => {
     this.setState({ query: event.target.value });
-  }
+  };
 
   handleLoadMore = () => {
     if (window.pageYOffset > 0) {
@@ -61,11 +61,11 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
     const { doctorList, account, match } = this.props;
     return (
       <div>
-        <this.renderLoggedInDataHomePageData account={account}/>
+        <this.renderLoggedInDataHomePageData account={account} />
         <Form id="register-form" onSubmit={this.handleValidSubmit}>
           <FormGroup row>
             <Col sm="5">
-              <Input name="query" onChange={this.setQuery} placeholder={translate('home.query.placeholder')}/>
+              <Input name="query" onChange={this.setQuery} placeholder={translate('home.query.placeholder')} />
             </Col>
             <Button color="primary" type="submit">
               <FontAwesomeIcon icon="search" />
@@ -85,10 +85,7 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
               <thead>
                 <tr>
                   <th className="hand">
-                    <Translate contentKey="dhomoniApp.searchDoctor.firstName">First Name</Translate>
-                  </th>
-                  <th className="hand">
-                    <Translate contentKey="dhomoniApp.searchDoctor.lastName">Last Name</Translate>
+                    <Translate contentKey="dhomoniApp.searchDoctor.name">Name</Translate>
                   </th>
                   <th className="hand">
                     <Translate contentKey="dhomoniApp.searchDoctor.email">Email</Translate>
@@ -114,8 +111,9 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
               <tbody>
                 {doctorList.map((doctor, i) => (
                   <tr key={`entity-${i}`}>
-                    <td>{doctor.firstName}</td>
-                    <td>{doctor.lastName}</td>
+                    <td>
+                      {doctor.firstName} {doctor.lastName}
+                    </td>
                     <td>{doctor.email}</td>
                     <td>{doctor.phone}</td>
                     <td>
@@ -129,15 +127,10 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
                             <img src={`data:${doctor.imageContentType};base64,${doctor.image}`} style={{ maxHeight: '30px' }} />
                             &nbsp;
                           </a>
-                          <span>
-                            {doctor.imageContentType}, {byteSize(doctor.image)}
-                          </span>
                         </div>
                       ) : null}
                     </td>
-                    <td>
-                      {doctor.medicalDepartment ? doctor.medicalDepartment.name : ''}
-                    </td>
+                    <td>{doctor.medicalDepartment ? doctor.medicalDepartment.name : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${doctor.id}`} color="info" size="sm">
@@ -171,7 +164,7 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
       );
     }
     return null;
-  }
+  };
 }
 
 const mapStateToProps = ({ authentication, home }: IRootState) => ({
