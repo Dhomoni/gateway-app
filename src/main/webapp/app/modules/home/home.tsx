@@ -4,7 +4,12 @@ import React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Translate, translate, openFile, byteSize, ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { Row, Col, Alert, Button, Table, InputGroup, FormGroup, InputGroupAddon, Input, Form } from 'reactstrap';
+import { Row, Col, Alert, Button, Table, InputGroup, FormGroup, InputGroupAddon, Input, Form,
+  InputGroupButtonDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  Container } from 'reactstrap';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
@@ -22,6 +27,7 @@ export interface IHomeState extends IPaginationBaseState {
   location: any;
   distance: number;
   locationError: string;
+  dropdownOpen: boolean;
 }
 
 export class Home extends React.Component<IHomeProp, IHomeState> {
@@ -30,7 +36,8 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
     query: '*',
     location: null,
     distance: 20.0,
-    locationError: null
+    locationError: null,
+    dropdownOpen: false
   };
 
   componentDidMount() {
@@ -39,6 +46,7 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
     this.props.getSession();
   }
 
+  // https://micropyramid.com/blog/tracking-location-using-react-native-in-android/
   requestLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -89,12 +97,34 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
     this.props.searchEntities(searchDTO, activePage - 1, itemsPerPage);
   };
 
+  toggleDropDown = () => {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  }
+
   render() {
+      
+      const styles = {
+              container: {
+                  paddingLeft: 0,
+                  paddingRight: 0
+              },
+              row: {
+                  marginLeft: 0,
+                  marginRight: 0
+              },
+              col: {
+                  paddingLeft: 0,
+                  paddingRight: 0
+              }
+          };
+      
     const { doctorList, account, match } = this.props;
     return (
       <div>
         <this.renderLoggedInDataHomePageData account={account} />
-        <Form id="register-form" onSubmit={this.handleValidSubmit}>
+{/*        <Form id="register-form" onSubmit={this.handleValidSubmit}>
           <FormGroup row>
             <Col sm="5">
               <Input name="query" onChange={this.setQuery} placeholder={translate('home.query.placeholder')} />
@@ -104,6 +134,30 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
             </Button>
           </FormGroup>
         </Form>
+        
+        https://stackoverflow.com/questions/44364502/how-to-set-selected-item-in-reactstrap-dropdown
+*/}
+        <Container fluid style={styles.container}>
+        <Row style={styles.row}>
+        <Col xs="6" sm="4" style={styles.col}>
+        <InputGroup>
+          <Input />
+          <InputGroupButtonDropdown color="primary" addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
+            <Button color="primary">
+              <FontAwesomeIcon icon="search" />
+            </Button>
+            <DropdownToggle color="dark" split outline/>
+            <DropdownMenu>
+              <DropdownItem>Nearby</DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem>All</DropdownItem>
+            </DropdownMenu>
+          </InputGroupButtonDropdown>
+        </InputGroup>
+        </Col>
+        </Row>
+        </Container>
+
         <div className="table-responsive">
           <InfiniteScroll
             pageStart={this.state.activePage}
