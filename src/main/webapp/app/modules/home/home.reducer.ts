@@ -71,11 +71,11 @@ const searchApiUrl = 'search/api/_search/doctors';
 
 // Actions
 
-export const searchEntities = (search, page, size) => {
-  const requestUrl = `${searchApiUrl}?query=${search}&page=${page}&size=${size}`;
+export const searchEntities = (searchDTO, page, size) => {
+  const requestUrl = `${searchApiUrl}?page=${page}&size=${size}`;
   return {
     type: ACTION_TYPES.SEARCH_DOCTORS,
-    payload: axios.get<IDoctor>(`${requestUrl}&cacheBuster=${new Date().getTime()}`)
+    payload: axios.post<IDoctor>(`${requestUrl}&cacheBuster=${new Date().getTime()}`, searchDTO)
   };
 };
 

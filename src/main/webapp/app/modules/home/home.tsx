@@ -19,22 +19,47 @@ export interface IHomeProp extends StateProps, DispatchProps, RouteComponentProp
 
 export interface IHomeState extends IPaginationBaseState {
   query: string;
+  location: any;
+  distance: number;
+  locationError: string;
 }
 
 export class Home extends React.Component<IHomeProp, IHomeState> {
   state: IHomeState = {
     ...getSortState(this.props.location, ITEMS_PER_PAGE),
-    query: '*'
+    query: '*',
+    location: null,
+    distance: 20.0,
+    locationError: null
   };
 
   componentDidMount() {
+    this.requestLocation();
     this.reset();
     this.props.getSession();
   }
 
+  requestLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        position => this.handleLocationSuccess(position),
+        error => this.setState({ locationError: error.message })
+      );
+    }
+  };
+
+  handleLocationSuccess = position => {
+    this.setState({
+      location: {
+        type: 'Point',
+        coordinates: [position.coords.longitude, position.coords.latitude]
+      }
+    }, () => this.reset());
+  }
+
   reset = () => {
     this.props.reset();
-    this.setState({ activePage: 1 }, () => this.searchEntities(this.state.query));
+    this.setState({ activePage: 1 }, () => this.searchEntities());
   };
 
   handleValidSubmit = event => {
@@ -43,18 +68,25 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
   };
 
   setQuery = event => {
-    this.setState({ query: event.target.value });
+    this.setState({
+      query: event.target.value
+    });
   };
 
   handleLoadMore = () => {
     if (window.pageYOffset > 0) {
-      this.setState({ activePage: this.state.activePage + 1 }, () => this.searchEntities(this.state.query));
+      this.setState({ activePage: this.state.activePage + 1 }, () => this.searchEntities());
     }
   };
 
-  searchEntities = query => {
+  searchEntities = () => {
     const { activePage, itemsPerPage } = this.state;
-    this.props.searchEntities(query, activePage - 1, itemsPerPage);
+    const searchDTO = {
+      query: this.state.query,
+      location: this.state.location,
+      distance: this.state.distance
+    };
+    this.props.searchEntities(searchDTO, activePage - 1, itemsPerPage);
   };
 
   render() {
@@ -85,6 +117,9 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
               <thead>
                 <tr>
                   <th className="hand">
+                    <Translate contentKey="dhomoniApp.searchDoctor.image">Image</Translate>
+                  </th>
+                  <th className="hand">
                     <Translate contentKey="dhomoniApp.searchDoctor.name">Name</Translate>
                   </th>
                   <th className="hand">
@@ -99,9 +134,6 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
                   <th className="hand">
                     <Translate contentKey="dhomoniApp.searchDoctor.designation">Designation</Translate>
                   </th>
-                  <th className="hand">
-                    <Translate contentKey="dhomoniApp.searchDoctor.image">Image</Translate>
-                  </th>
                   <th>
                     <Translate contentKey="dhomoniApp.searchDoctor.medicalDepartment">Medical Department</Translate>{' '}
                   </th>
@@ -112,15 +144,6 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
                 {doctorList.map((doctor, i) => (
                   <tr key={`entity-${i}`}>
                     <td>
-                      {doctor.firstName} {doctor.lastName}
-                    </td>
-                    <td>{doctor.email}</td>
-                    <td>{doctor.phone}</td>
-                    <td>
-                      <Translate contentKey={`dhomoniApp.DoctorType.${doctor.type}`} />
-                    </td>
-                    <td>{doctor.designation}</td>
-                    <td>
                       {doctor.image ? (
                         <div>
                           <a onClick={openFile(doctor.imageContentType, doctor.image)}>
@@ -130,6 +153,15 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
                         </div>
                       ) : null}
                     </td>
+                    <td>
+                      {doctor.firstName} {doctor.lastName}
+                    </td>
+                    <td>{doctor.email}</td>
+                    <td>{doctor.phone}</td>
+                    <td>
+                      <Translate contentKey={`dhomoniApp.DoctorType.${doctor.type}`} />
+                    </td>
+                    <td>{doctor.designation}</td>
                     <td>{doctor.medicalDepartment ? doctor.medicalDepartment.name : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">

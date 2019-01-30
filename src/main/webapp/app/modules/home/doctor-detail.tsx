@@ -111,9 +111,6 @@ export class DoctorDetail extends React.Component<IDoctorDetailProps> {
                   <a onClick={openFile(doctorEntity.imageContentType, doctorEntity.image)}>
                     <img src={`data:${doctorEntity.imageContentType};base64,${doctorEntity.image}`} style={{ maxHeight: '30px' }} />
                   </a>
-                  <span>
-                    {doctorEntity.imageContentType}, {byteSize(doctorEntity.image)}
-                  </span>
                 </div>
               ) : null}
             </dd>
@@ -126,7 +123,7 @@ export class DoctorDetail extends React.Component<IDoctorDetailProps> {
             <dt>
               <Translate contentKey="dhomoniApp.searchDoctor.medicalDepartment">Medical Department</Translate>
             </dt>
-            <dd>{doctorEntity.medicalDepartment ? doctorEntity.medicalDepartment.id : ''}</dd>
+            <dd>{doctorEntity.medicalDepartment ? doctorEntity.medicalDepartment.name : ''}</dd>
           </dl>
           <Button tag={Link} to="/" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
