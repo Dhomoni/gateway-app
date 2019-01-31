@@ -4,12 +4,23 @@ import React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Translate, translate, openFile, byteSize, ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { connect } from 'react-redux';
-import { Row, Col, Alert, Button, Table, InputGroup, FormGroup, InputGroupAddon, Input, Form,
+import {
+  Row,
+  Col,
+  Alert,
+  Button,
+  Table,
+  InputGroup,
+  FormGroup,
+  InputGroupAddon,
+  Input,
+  Form,
   InputGroupButtonDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Container } from 'reactstrap';
+  Container
+} from 'reactstrap';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
@@ -28,6 +39,7 @@ export interface IHomeState extends IPaginationBaseState {
   distance: number;
   locationError: string;
   dropdownOpen: boolean;
+  dropDownSelectedText: string;
 }
 
 export class Home extends React.Component<IHomeProp, IHomeState> {
@@ -35,9 +47,10 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
     ...getSortState(this.props.location, ITEMS_PER_PAGE),
     query: '*',
     location: null,
-    distance: 20.0,
+    distance: null,
     locationError: null,
-    dropdownOpen: false
+    dropdownOpen: false,
+    dropDownSelectedText: 'All'
   };
 
   componentDidMount() {
@@ -57,17 +70,28 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
   };
 
   handleLocationSuccess = position => {
-    this.setState({
-      location: {
-        type: 'Point',
-        coordinates: [position.coords.longitude, position.coords.latitude]
-      }
-    }, () => this.reset());
-  }
+    this.setState(
+      {
+        location: {
+          type: 'Point',
+          coordinates: [position.coords.longitude, position.coords.latitude]
+        },
+        distance: 20.0,
+        dropDownSelectedText: 'Nearby'
+      },
+      () => this.reset()
+    );
+  };
 
   reset = () => {
     this.props.reset();
     this.setState({ activePage: 1 }, () => this.searchEntities());
+  };
+
+  handleKeyPress = event => {
+    if (event.key === 'Enter') {
+      this.handleValidSubmit(event);
+    }
   };
 
   handleValidSubmit = event => {
@@ -101,63 +125,55 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
     });
-  }
+  };
+
+  handleDropdownItemClick = event => {
+    if (this.state.dropDownSelectedText === 'All' && event.target.innerText === 'Nearby' && !this.state.location) {
+      this.requestLocation();
+    } else {
+      this.setState({
+        dropDownSelectedText: event.target.innerText,
+        distance: event.currentTarget.getAttribute('dropDownValue')
+      });
+    }
+  };
 
   render() {
-      
-      const styles = {
-              container: {
-                  paddingLeft: 0,
-                  paddingRight: 0
-              },
-              row: {
-                  marginLeft: 0,
-                  marginRight: 0
-              },
-              col: {
-                  paddingLeft: 0,
-                  paddingRight: 0
-              }
-          };
-      
     const { doctorList, account, match } = this.props;
     return (
       <div>
         <this.renderLoggedInDataHomePageData account={account} />
-{/*        <Form id="register-form" onSubmit={this.handleValidSubmit}>
-          <FormGroup row>
-            <Col sm="5">
-              <Input name="query" onChange={this.setQuery} placeholder={translate('home.query.placeholder')} />
+        <Container fluid>
+          <Row>
+            <Col md="6" className="col-no-padding">
+              <Input
+                name="query"
+                onChange={this.setQuery}
+                onKeyPress={this.handleKeyPress}
+                placeholder={translate('home.query.placeholder')}
+              />
             </Col>
-            <Button color="primary" type="submit">
-              <FontAwesomeIcon icon="search" />
-            </Button>
-          </FormGroup>
-        </Form>
-        
-        https://stackoverflow.com/questions/44364502/how-to-set-selected-item-in-reactstrap-dropdown
-*/}
-        <Container fluid style={styles.container}>
-        <Row style={styles.row}>
-        <Col xs="6" sm="4" style={styles.col}>
-        <InputGroup>
-          <Input />
-          <InputGroupButtonDropdown color="primary" addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
-            <Button color="primary">
-              <FontAwesomeIcon icon="search" />
-            </Button>
-            <DropdownToggle color="dark" split outline/>
-            <DropdownMenu>
-              <DropdownItem>Nearby</DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>All</DropdownItem>
-            </DropdownMenu>
-          </InputGroupButtonDropdown>
-        </InputGroup>
-        </Col>
-        </Row>
+            <Col md="auto" className="col-no-padding">
+              <Button color="primary" onClick={this.handleValidSubmit}>
+                <FontAwesomeIcon icon="search" />
+              </Button>
+            </Col>
+            <Col md="auto" className="col-no-padding">
+              <InputGroupButtonDropdown color="primary" addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
+                <DropdownToggle className="text-muted" color="grey" split>
+                  {this.state.dropDownSelectedText}
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem onClick={this.handleDropdownItemClick} dropDownValue="20">
+                    Nearby
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem onClick={this.handleDropdownItemClick}>All</DropdownItem>
+                </DropdownMenu>
+              </InputGroupButtonDropdown>
+            </Col>
+          </Row>
         </Container>
-
         <div className="table-responsive">
           <InfiniteScroll
             pageStart={this.state.activePage}

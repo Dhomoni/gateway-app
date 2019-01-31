@@ -8,3 +8,18 @@ Main page styles
   background: url('../../../static/images/logo-jhipster-react.svg') no-repeat center top;
   background-size: contain;
 }
+
+Container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+Row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.col-no-padding {
+  padding-left: 0;
+  padding-right: 0;
+}
