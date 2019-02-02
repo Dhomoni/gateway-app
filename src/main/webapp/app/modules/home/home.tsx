@@ -205,7 +205,13 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
                     <Translate contentKey="dhomoniApp.searchDoctor.designation">Designation</Translate>
                   </th>
                   <th>
-                    <Translate contentKey="dhomoniApp.searchDoctor.medicalDepartment">Medical Department</Translate>{' '}
+                    <Translate contentKey="dhomoniApp.searchDoctor.medicalDepartment">Medical Department</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="dhomoniApp.searchDoctor.address">Address</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="dhomoniApp.searchDoctor.distance">Distance</Translate>
                   </th>
                   <th />
                 </tr>
@@ -233,6 +239,8 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
                     </td>
                     <td>{doctor.designation}</td>
                     <td>{doctor.medicalDepartment ? doctor.medicalDepartment.name : ''}</td>
+                    <td>{doctor.chambers ? doctor.chambers[0].address : ''}</td>
+                    <td>{doctor.chambers && doctor.chambers[0].distanceInKM ? doctor.chambers[0].distanceInKM.toFixed(2) + ' km' : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`${match.url}/${doctor.id}`} color="info" size="sm">

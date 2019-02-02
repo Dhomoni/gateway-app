@@ -6,6 +6,7 @@ export interface IChamber {
   address?: string;
   phone?: string;
   fee?: number;
+  distanceInKM?: number;
   doctor?: IDoctor;
   weeklyVisitingHours?: IWeeklyVisitingHour[];
 }

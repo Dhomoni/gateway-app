@@ -27,8 +27,10 @@
       "image": "Image",
       "activated": "Activated",
       "medicalDepartment": "Medical Department",
+      "address": "Address",
       "chambers": "Chambers",
-      "professionalDegrees": "Professional Degrees"
+      "professionalDegrees": "Professional Degrees",
+      "distance": "Distance"
     }
   },
   "searchApp": {
