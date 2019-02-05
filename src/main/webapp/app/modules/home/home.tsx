@@ -101,7 +101,7 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
 
   setQuery = event => {
     this.setState({
-      query: event.target.value
+      query: (event.target.value = '' ? '*' : event.target.value)
     });
   };
 
