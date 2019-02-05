@@ -35,11 +35,11 @@ export interface IParamProps {
   onRef: Function;
 }
 
-export interface IDoctorProp extends StateProps, DispatchProps, IParamProps, RouteComponentProps<{ url: string }> {}
+export interface IDoctorProps extends StateProps, DispatchProps, IParamProps, RouteComponentProps<{ url: string }> {}
 
 export type IDoctorState = IPaginationBaseState;
 
-export class Doctor extends React.Component<IDoctorProp, IDoctorState> {
+export class Doctor extends React.Component<IDoctorProps, IDoctorState> {
   state: IDoctorState = {
     ...getSortState(this.props.location, ITEMS_PER_PAGE)
   };

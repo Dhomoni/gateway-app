@@ -18,6 +18,7 @@ import chamber, { ChamberState } from 'app/entities/search/chamber/chamber.reduc
 import weeklyVisitingHour, { WeeklyVisitingHourState } from 'app/entities/search/weekly-visiting-hour/weekly-visiting-hour.reducer';
 import professionalDegree, { ProfessionalDegreeState } from 'app/entities/search/professional-degree/professional-degree.reducer';
 import patient, { PatientState } from 'app/entities/search/patient/patient.reducer';
+import searchPatient, { SearchPatientState } from 'app/modules/home/patient.reducer';
 import medicine, { MedicineState } from 'app/entities/search/medicine/medicine.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
@@ -40,6 +41,7 @@ export interface IRootState {
   readonly weeklyVisitingHour: WeeklyVisitingHourState;
   readonly professionalDegree: ProfessionalDegreeState;
   readonly patient: PatientState;
+  readonly searchPatient: SearchPatientState;
   readonly medicine: MedicineState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
@@ -64,6 +66,7 @@ const rootReducer = combineReducers<IRootState>({
   weeklyVisitingHour,
   professionalDegree,
   patient,
+  searchPatient,
   medicine,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar

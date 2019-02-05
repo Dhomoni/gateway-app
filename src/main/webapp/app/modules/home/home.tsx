@@ -19,8 +19,14 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Container
+  Container,
+  TabContent,
+  TabPane,
+  Nav,
+  NavItem,
+  NavLink
 } from 'reactstrap';
+import classnames from 'classnames';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
@@ -28,6 +34,7 @@ import { getSession } from 'app/shared/reducers/authentication';
 import { AvForm, AvField, AvGroup } from 'availity-reactstrap-validation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Doctor from './doctor';
+import Patient from './patient';
 
 export interface IHomeProp extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -39,6 +46,8 @@ export interface IHomeState {
   dropdownOpen: boolean;
   dropDownSelectedText: string;
   doctor: any;
+  patient: any;
+  activeTab: string;
 }
 
 export class Home extends React.Component<IHomeProp, IHomeState> {
@@ -49,7 +58,9 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
     locationError: null,
     dropdownOpen: false,
     dropDownSelectedText: 'All',
-    doctor: null
+    doctor: null,
+    patient: null,
+    activeTab: 'doctor'
   };
 
   componentDidMount() {
@@ -83,8 +94,10 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
   };
 
   reset = () => {
-    if (this.state.doctor) {
+    if (this.state.doctor && this.state.activeTab === 'doctor') {
       this.state.doctor.reset();
+    } else if (this.state.patient && this.state.activeTab === 'patient') {
+      this.state.patient.reset();
     }
   };
 
@@ -122,7 +135,21 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
     }
   };
 
+  handleDoctorTabClick = () => {
+    if (this.state.activeTab !== 'doctor') {
+      this.setState({ activeTab: 'doctor' }, () => this.reset());
+    }
+  };
+
+  handlePatientTabClick = () => {
+    if (this.state.activeTab !== 'patient') {
+      this.setState({ activeTab: 'patient' }, () => this.reset());
+    }
+  };
+
   setDoctorRef = ref => this.setState({ doctor: ref });
+
+  setPatientRef = ref => this.setState({ patient: ref });
 
   render() {
     const { account } = this.props;
@@ -160,16 +187,51 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
             </Col>
           </Row>
         </Container>
-        <Doctor
-          onRef={this.setDoctorRef}
-          query={this.state.query}
-          currentLocation={this.state.currentLocation}
-          searchRadius={this.state.searchRadius}
-          {...this.props}
-        />
+        <this.renderTabContents />
       </div>
     );
   }
+
+  renderTabContents = () => (
+    <div>
+      <Nav tabs>
+        <NavItem>
+          <NavLink className={classnames({ active: this.state.activeTab === 'doctor' })} onClick={this.handleDoctorTabClick}>
+            Doctors
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink className={classnames({ active: this.state.activeTab === 'patient' })} onClick={this.handlePatientTabClick}>
+            Patients
+          </NavLink>
+        </NavItem>
+      </Nav>
+      <TabContent activeTab={this.state.activeTab}>
+        <TabPane tabId="doctor">
+          <TabPane tabId="doctor">
+            <Doctor
+              onRef={this.setDoctorRef}
+              query={this.state.query}
+              currentLocation={this.state.currentLocation}
+              searchRadius={this.state.searchRadius}
+              {...this.props}
+            />
+          </TabPane>
+        </TabPane>
+        <TabPane tabId="patient">
+          <TabPane tabId="patient">
+            <Patient
+              onRef={this.setPatientRef}
+              query={this.state.query}
+              currentLocation={this.state.currentLocation}
+              searchRadius={this.state.searchRadius}
+              {...this.props}
+            />
+          </TabPane>
+        </TabPane>
+      </TabContent>
+    </div>
+  );
 
   renderLoggedInDataHomePageData = ({ account }) => {
     if (account && account.login) {

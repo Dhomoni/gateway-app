@@ -13,6 +13,7 @@
         "title": "Patient"
       },
       "registrationId": "Registration Id",
+      "name": "Name",
       "firstName": "First Name",
       "lastName": "Last Name",
       "email": "Email",
