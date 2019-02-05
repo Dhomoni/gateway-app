@@ -8,11 +8,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
 import { IDoctor } from 'app/shared/model/search/doctor.model';
-import { searchEntity, reset } from './home.reducer';
+import { searchEntity } from './doctor.reducer';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-export interface IDoctorDetailProps extends StateProps , DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IDoctorDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export class DoctorDetail extends React.Component<IDoctorDetailProps> {
   componentDidMount() {
@@ -137,11 +137,11 @@ export class DoctorDetail extends React.Component<IDoctorDetailProps> {
   }
 }
 
-const mapStateToProps = ({ home }: IRootState) => ({
-  doctorEntity: home.entity
+const mapStateToProps = ({ searchDoctor }: IRootState) => ({
+  doctorEntity: searchDoctor.entity
 });
 
-const mapDispatchToProps = { searchEntity, reset };
+const mapDispatchToProps = { searchEntity };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

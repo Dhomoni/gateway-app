@@ -11,7 +11,7 @@ import password, { PasswordState } from 'app/modules/account/password/password.r
 import settings, { SettingsState } from 'app/modules/account/settings/settings.reducer';
 import passwordReset, { PasswordResetState } from 'app/modules/account/password-reset/password-reset.reducer';
 import doctor, { DoctorState } from 'app/entities/search/doctor/doctor.reducer';
-import home, { HomeState } from 'app/modules/home/home.reducer';
+import searchDoctor, { SearchDoctorState } from 'app/modules/home/doctor.reducer';
 import medicalDepartment, { MedicalDepartmentState } from 'app/entities/search/medical-department/medical-department.reducer';
 import disease, { DiseaseState } from 'app/entities/search/disease/disease.reducer';
 import chamber, { ChamberState } from 'app/entities/search/chamber/chamber.reducer';
@@ -33,7 +33,7 @@ export interface IRootState {
   readonly password: PasswordState;
   readonly settings: SettingsState;
   readonly doctor: DoctorState;
-  readonly home: HomeState;
+  readonly searchDoctor: SearchDoctorState;
   readonly medicalDepartment: MedicalDepartmentState;
   readonly disease: DiseaseState;
   readonly chamber: ChamberState;
@@ -57,7 +57,7 @@ const rootReducer = combineReducers<IRootState>({
   password,
   settings,
   doctor,
-  home,
+  searchDoctor,
   medicalDepartment,
   disease,
   chamber,
