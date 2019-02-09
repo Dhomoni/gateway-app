@@ -15,7 +15,7 @@
       "medicalName": "Medical Name",
       "generalName": "General Name",
       "symptoms": "Symptoms",
-      "dept": "Dept"
+      "medicalDepartment": "Medical Department"
     }
   },
   "searchApp": {

@@ -12,6 +12,8 @@ import WeeklyVisitingHour from './search/weekly-visiting-hour';
 import ProfessionalDegree from './search/professional-degree';
 import Patient from './search/patient';
 import Medicine from './search/medicine';
+import Symptom from './search/symptom';
+import Indication from './search/indication';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -26,6 +28,8 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}/professional-degree`} component={ProfessionalDegree} />
       <ErrorBoundaryRoute path={`${match.url}/patient`} component={Patient} />
       <ErrorBoundaryRoute path={`${match.url}/medicine`} component={Medicine} />
+      <ErrorBoundaryRoute path={`${match.url}/symptom`} component={Symptom} />
+      <ErrorBoundaryRoute path={`${match.url}/indication`} component={Indication} />
       {/* jhipster-needle-add-route-path - JHipster will routes here */}
     </Switch>
   </div>

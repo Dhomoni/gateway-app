@@ -20,6 +20,8 @@ import professionalDegree, { ProfessionalDegreeState } from 'app/entities/search
 import patient, { PatientState } from 'app/entities/search/patient/patient.reducer';
 import searchPatient, { SearchPatientState } from 'app/modules/home/patient.reducer';
 import medicine, { MedicineState } from 'app/entities/search/medicine/medicine.reducer';
+import symptom, { SymptomState } from 'app/entities/search/symptom/symptom.reducer';
+import indication, { IndicationState } from 'app/entities/search/indication/indication.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -43,6 +45,8 @@ export interface IRootState {
   readonly patient: PatientState;
   readonly searchPatient: SearchPatientState;
   readonly medicine: MedicineState;
+  readonly symptom: SymptomState;
+  readonly indication: IndicationState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -68,6 +72,8 @@ const rootReducer = combineReducers<IRootState>({
   patient,
   searchPatient,
   medicine,
+  symptom,
+  indication,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });

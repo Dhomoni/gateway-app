@@ -1,0 +1,25 @@
+{
+  "dhomoniApp": {
+    "searchIndication": {
+      "home": {
+        "title": "Indications",
+        "createLabel": "Create a new Indication",
+        "createOrEditLabel": "Create or edit a Indication"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Indication {{ id }}?"
+      },
+      "detail": {
+        "title": "Indication"
+      },
+      "name": "Name"
+    }
+  },
+  "searchApp": {
+    "searchIndication": {
+      "created": "A new Indication is created with identifier {{ param }}",
+      "updated": "A Indication is updated with identifier {{ param }}",
+      "deleted": "A Indication is deleted with identifier {{ param }}"
+    }
+  }
+}

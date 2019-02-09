@@ -41,22 +41,30 @@ export class DiseaseDetail extends React.Component<IDiseaseDetailProps> {
             </dt>
             <dd>{diseaseEntity.generalName}</dd>
             <dt>
-              <span id="symptoms">
-                <Translate contentKey="dhomoniApp.searchDisease.symptoms">Symptoms</Translate>
-              </span>
+              <Translate contentKey="dhomoniApp.searchDisease.symptoms">Symptoms</Translate>
             </dt>
-            <dd>{diseaseEntity.symptoms}</dd>
+            <dd>
+              {diseaseEntity.symptoms
+                ? diseaseEntity.symptoms.map((val, i) => (
+                    <span key={val.id}>
+                      <a>{val.id}</a>
+                      {i === diseaseEntity.symptoms.length - 1 ? '' : ', '}
+                    </span>
+                  ))
+                : null}
+            </dd>
             <dt>
-              <Translate contentKey="dhomoniApp.searchDisease.dept">Dept</Translate>
+              <Translate contentKey="dhomoniApp.searchDisease.medicalDepartment">Medical Department</Translate>
             </dt>
-            <dd>{diseaseEntity.dept ? diseaseEntity.dept.id : ''}</dd>
+            <dd>{diseaseEntity.medicalDepartment ? diseaseEntity.medicalDepartment.id : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/disease" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>&nbsp;
+          </Button>
+          &nbsp;
           <Button tag={Link} to={`/entity/disease/${diseaseEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">

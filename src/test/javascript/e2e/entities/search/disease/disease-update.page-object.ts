@@ -6,8 +6,8 @@ export default class DiseaseUpdatePage {
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   medicalNameInput: ElementFinder = element(by.css('input#disease-medicalName'));
   generalNameInput: ElementFinder = element(by.css('input#disease-generalName'));
-  symptomsInput: ElementFinder = element(by.css('input#disease-symptoms'));
-  deptSelect: ElementFinder = element(by.css('select#disease-dept'));
+  symptomsSelect: ElementFinder = element(by.css('select#disease-symptoms'));
+  medicalDepartmentSelect: ElementFinder = element(by.css('select#disease-medicalDepartment'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -29,31 +29,42 @@ export default class DiseaseUpdatePage {
     return this.generalNameInput.getAttribute('value');
   }
 
-  async setSymptomsInput(symptoms) {
-    await this.symptomsInput.sendKeys(symptoms);
-  }
-
-  async getSymptomsInput() {
-    return this.symptomsInput.getAttribute('value');
-  }
-
-  async deptSelectLastOption() {
-    await this.deptSelect
+  async symptomsSelectLastOption() {
+    await this.symptomsSelect
       .all(by.tagName('option'))
       .last()
       .click();
   }
 
-  async deptSelectOption(option) {
-    await this.deptSelect.sendKeys(option);
+  async symptomsSelectOption(option) {
+    await this.symptomsSelect.sendKeys(option);
   }
 
-  getDeptSelect() {
-    return this.deptSelect;
+  getSymptomsSelect() {
+    return this.symptomsSelect;
   }
 
-  async getDeptSelectedOption() {
-    return this.deptSelect.element(by.css('option:checked')).getText();
+  async getSymptomsSelectedOption() {
+    return this.symptomsSelect.element(by.css('option:checked')).getText();
+  }
+
+  async medicalDepartmentSelectLastOption() {
+    await this.medicalDepartmentSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async medicalDepartmentSelectOption(option) {
+    await this.medicalDepartmentSelect.sendKeys(option);
+  }
+
+  getMedicalDepartmentSelect() {
+    return this.medicalDepartmentSelect;
+  }
+
+  async getMedicalDepartmentSelectedOption() {
+    return this.medicalDepartmentSelect.element(by.css('option:checked')).getText();
   }
 
   async save() {

@@ -8,14 +8,14 @@ export default class MedicineUpdatePage {
   unitQuantityInput: ElementFinder = element(by.css('input#medicine-unitQuantity'));
   genericNameInput: ElementFinder = element(by.css('input#medicine-genericName'));
   chemicalNameInput: ElementFinder = element(by.css('input#medicine-chemicalName'));
-  typeSelect: ElementFinder = element(by.css('select#medicine-type'));
+  formulationSelect: ElementFinder = element(by.css('select#medicine-formulation'));
   manufacturerInput: ElementFinder = element(by.css('input#medicine-manufacturer'));
   mrpInput: ElementFinder = element(by.css('input#medicine-mrp'));
-  indicationsInput: ElementFinder = element(by.css('input#medicine-indications'));
   doseAndAdminInput: ElementFinder = element(by.css('input#medicine-doseAndAdmin'));
   preparationInput: ElementFinder = element(by.css('input#medicine-preparation'));
   productUrlInput: ElementFinder = element(by.css('input#medicine-productUrl'));
   activeInput: ElementFinder = element(by.css('input#medicine-active'));
+  indicationsSelect: ElementFinder = element(by.css('select#medicine-indications'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -53,16 +53,16 @@ export default class MedicineUpdatePage {
     return this.chemicalNameInput.getAttribute('value');
   }
 
-  async setTypeSelect(type) {
-    await this.typeSelect.sendKeys(type);
+  async setFormulationSelect(formulation) {
+    await this.formulationSelect.sendKeys(formulation);
   }
 
-  async getTypeSelect() {
-    return this.typeSelect.element(by.css('option:checked')).getText();
+  async getFormulationSelect() {
+    return this.formulationSelect.element(by.css('option:checked')).getText();
   }
 
-  async typeSelectLastOption() {
-    await this.typeSelect
+  async formulationSelectLastOption() {
+    await this.formulationSelect
       .all(by.tagName('option'))
       .last()
       .click();
@@ -81,14 +81,6 @@ export default class MedicineUpdatePage {
 
   async getMrpInput() {
     return this.mrpInput.getAttribute('value');
-  }
-
-  async setIndicationsInput(indications) {
-    await this.indicationsInput.sendKeys(indications);
-  }
-
-  async getIndicationsInput() {
-    return this.indicationsInput.getAttribute('value');
   }
 
   async setDoseAndAdminInput(doseAndAdmin) {
@@ -118,6 +110,25 @@ export default class MedicineUpdatePage {
   getActiveInput() {
     return this.activeInput;
   }
+  async indicationsSelectLastOption() {
+    await this.indicationsSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async indicationsSelectOption(option) {
+    await this.indicationsSelect.sendKeys(option);
+  }
+
+  getIndicationsSelect() {
+    return this.indicationsSelect;
+  }
+
+  async getIndicationsSelectedOption() {
+    return this.indicationsSelect.element(by.css('option:checked')).getText();
+  }
+
   async save() {
     await this.saveButton.click();
   }

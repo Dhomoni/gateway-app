@@ -8,18 +8,18 @@ import { Translate, ICrudGetAllAction, getSortState, IPaginationBaseState } from
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntities, reset } from './disease.reducer';
-import { IDisease } from 'app/shared/model/search/disease.model';
+import { getEntities, reset } from './symptom.reducer';
+import { ISymptom } from 'app/shared/model/search/symptom.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
-export interface IDiseaseProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+export interface ISymptomProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export type IDiseaseState = IPaginationBaseState;
+export type ISymptomState = IPaginationBaseState;
 
-export class Disease extends React.Component<IDiseaseProps, IDiseaseState> {
-  state: IDiseaseState = {
+export class Symptom extends React.Component<ISymptomProps, ISymptomState> {
+  state: ISymptomState = {
     ...getSortState(this.props.location, ITEMS_PER_PAGE)
   };
 
@@ -64,15 +64,15 @@ export class Disease extends React.Component<IDiseaseProps, IDiseaseState> {
   };
 
   render() {
-    const { diseaseList, match } = this.props;
+    const { symptomList, match } = this.props;
     return (
       <div>
-        <h2 id="disease-heading">
-          <Translate contentKey="dhomoniApp.searchDisease.home.title">Diseases</Translate>
+        <h2 id="symptom-heading">
+          <Translate contentKey="dhomoniApp.searchSymptom.home.title">Symptoms</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="dhomoniApp.searchDisease.home.createLabel">Create new Disease</Translate>
+            <Translate contentKey="dhomoniApp.searchSymptom.home.createLabel">Create new Symptom</Translate>
           </Link>
         </h2>
         <div className="table-responsive">
@@ -90,51 +90,36 @@ export class Disease extends React.Component<IDiseaseProps, IDiseaseState> {
                   <th className="hand" onClick={this.sort('id')}>
                     <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th className="hand" onClick={this.sort('medicalName')}>
-                    <Translate contentKey="dhomoniApp.searchDisease.medicalName">Medical Name</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={this.sort('generalName')}>
-                    <Translate contentKey="dhomoniApp.searchDisease.generalName">General Name</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th>
-                    <Translate contentKey="dhomoniApp.searchDisease.medicalDepartment">Medical Department</Translate>{' '}
-                    <FontAwesomeIcon icon="sort" />
+                  <th className="hand" onClick={this.sort('name')}>
+                    <Translate contentKey="dhomoniApp.searchSymptom.name">Name</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th />
                 </tr>
               </thead>
               <tbody>
-                {diseaseList.map((disease, i) => (
+                {symptomList.map((symptom, i) => (
                   <tr key={`entity-${i}`}>
                     <td>
-                      <Button tag={Link} to={`${match.url}/${disease.id}`} color="link" size="sm">
-                        {disease.id}
+                      <Button tag={Link} to={`${match.url}/${symptom.id}`} color="link" size="sm">
+                        {symptom.id}
                       </Button>
                     </td>
-                    <td>{disease.medicalName}</td>
-                    <td>{disease.generalName}</td>
-                    <td>
-                      {disease.medicalDepartment ? (
-                        <Link to={`medical-department/${disease.medicalDepartment.id}`}>{disease.medicalDepartment.id}</Link>
-                      ) : (
-                        ''
-                      )}
-                    </td>
+                    <td>{symptom.name}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
-                        <Button tag={Link} to={`${match.url}/${disease.id}`} color="info" size="sm">
+                        <Button tag={Link} to={`${match.url}/${symptom.id}`} color="info" size="sm">
                           <FontAwesomeIcon icon="eye" />{' '}
                           <span className="d-none d-md-inline">
                             <Translate contentKey="entity.action.view">View</Translate>
                           </span>
                         </Button>
-                        <Button tag={Link} to={`${match.url}/${disease.id}/edit`} color="primary" size="sm">
+                        <Button tag={Link} to={`${match.url}/${symptom.id}/edit`} color="primary" size="sm">
                           <FontAwesomeIcon icon="pencil-alt" />{' '}
                           <span className="d-none d-md-inline">
                             <Translate contentKey="entity.action.edit">Edit</Translate>
                           </span>
                         </Button>
-                        <Button tag={Link} to={`${match.url}/${disease.id}/delete`} color="danger" size="sm">
+                        <Button tag={Link} to={`${match.url}/${symptom.id}/delete`} color="danger" size="sm">
                           <FontAwesomeIcon icon="trash" />{' '}
                           <span className="d-none d-md-inline">
                             <Translate contentKey="entity.action.delete">Delete</Translate>
@@ -153,12 +138,12 @@ export class Disease extends React.Component<IDiseaseProps, IDiseaseState> {
   }
 }
 
-const mapStateToProps = ({ disease }: IRootState) => ({
-  diseaseList: disease.entities,
-  totalItems: disease.totalItems,
-  links: disease.links,
-  entity: disease.entity,
-  updateSuccess: disease.updateSuccess
+const mapStateToProps = ({ symptom }: IRootState) => ({
+  symptomList: symptom.entities,
+  totalItems: symptom.totalItems,
+  links: symptom.links,
+  entity: symptom.entity,
+  updateSuccess: symptom.updateSuccess
 });
 
 const mapDispatchToProps = {
@@ -172,4 +157,4 @@ type DispatchProps = typeof mapDispatchToProps;
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Disease);
+)(Symptom);

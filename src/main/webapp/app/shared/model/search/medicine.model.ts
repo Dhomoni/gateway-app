@@ -1,4 +1,6 @@
-export const enum MedicineType {
+import { IIndication } from 'app/shared/model/search/indication.model';
+
+export const enum Formulation {
   TABLET = 'TABLET',
   CAPSULE = 'CAPSULE',
   SYRUP = 'SYRUP',
@@ -14,14 +16,14 @@ export interface IMedicine {
   unitQuantity?: string;
   genericName?: string;
   chemicalName?: string;
-  type?: MedicineType;
+  formulation?: Formulation;
   manufacturer?: string;
   mrp?: number;
-  indications?: string;
   doseAndAdmin?: string;
   preparation?: string;
   productUrl?: string;
   active?: boolean;
+  indications?: IIndication[];
 }
 
 export const defaultValue: Readonly<IMedicine> = {

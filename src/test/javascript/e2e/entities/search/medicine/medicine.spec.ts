@@ -54,13 +54,11 @@ describe('Medicine e2e test', () => {
     expect(await medicineUpdatePage.getGenericNameInput()).to.match(/genericName/);
     await medicineUpdatePage.setChemicalNameInput('chemicalName');
     expect(await medicineUpdatePage.getChemicalNameInput()).to.match(/chemicalName/);
-    await medicineUpdatePage.typeSelectLastOption();
+    await medicineUpdatePage.formulationSelectLastOption();
     await medicineUpdatePage.setManufacturerInput('manufacturer');
     expect(await medicineUpdatePage.getManufacturerInput()).to.match(/manufacturer/);
     await medicineUpdatePage.setMrpInput('5');
     expect(await medicineUpdatePage.getMrpInput()).to.eq('5');
-    await medicineUpdatePage.setIndicationsInput('indications');
-    expect(await medicineUpdatePage.getIndicationsInput()).to.match(/indications/);
     await medicineUpdatePage.setDoseAndAdminInput('doseAndAdmin');
     expect(await medicineUpdatePage.getDoseAndAdminInput()).to.match(/doseAndAdmin/);
     await medicineUpdatePage.setPreparationInput('preparation');
@@ -75,6 +73,7 @@ describe('Medicine e2e test', () => {
       await medicineUpdatePage.getActiveInput().click();
       expect(await medicineUpdatePage.getActiveInput().isSelected()).to.be.true;
     }
+    // medicineUpdatePage.indicationsSelectLastOption();
     await waitUntilDisplayed(medicineUpdatePage.getSaveButton());
     await medicineUpdatePage.save();
     await waitUntilHidden(medicineUpdatePage.getSaveButton());

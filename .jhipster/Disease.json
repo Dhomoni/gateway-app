@@ -14,16 +14,20 @@
             "fieldValidateRules": [
                 "required"
             ]
-        },
-        {
-            "fieldName": "symptoms",
-            "fieldType": "String"
         }
     ],
     "relationships": [
         {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "symptoms",
+            "otherEntityName": "symptom",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
             "relationshipType": "many-to-one",
-            "relationshipName": "dept",
+            "relationshipName": "medicalDepartment",
             "otherEntityName": "medicalDepartment",
             "otherEntityField": "id"
         }

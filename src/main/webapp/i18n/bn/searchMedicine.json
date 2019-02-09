@@ -16,14 +16,14 @@
       "unitQuantity": "Unit Quantity",
       "genericName": "Generic Name",
       "chemicalName": "Chemical Name",
-      "type": "Type",
+      "formulation": "Formulation",
       "manufacturer": "Manufacturer",
       "mrp": "Mrp",
-      "indications": "Indications",
       "doseAndAdmin": "Dose And Admin",
       "preparation": "Preparation",
       "productUrl": "Product Url",
-      "active": "Active"
+      "active": "Active",
+      "indications": "Indications"
     }
   },
   "searchApp": {

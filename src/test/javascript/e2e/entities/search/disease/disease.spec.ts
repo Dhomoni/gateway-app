@@ -50,9 +50,8 @@ describe('Disease e2e test', () => {
     expect(await diseaseUpdatePage.getMedicalNameInput()).to.match(/medicalName/);
     await diseaseUpdatePage.setGeneralNameInput('generalName');
     expect(await diseaseUpdatePage.getGeneralNameInput()).to.match(/generalName/);
-    await diseaseUpdatePage.setSymptomsInput('symptoms');
-    expect(await diseaseUpdatePage.getSymptomsInput()).to.match(/symptoms/);
-    await diseaseUpdatePage.deptSelectLastOption();
+    // diseaseUpdatePage.symptomsSelectLastOption();
+    await diseaseUpdatePage.medicalDepartmentSelectLastOption();
     await waitUntilDisplayed(diseaseUpdatePage.getSaveButton());
     await diseaseUpdatePage.save();
     await waitUntilHidden(diseaseUpdatePage.getSaveButton());

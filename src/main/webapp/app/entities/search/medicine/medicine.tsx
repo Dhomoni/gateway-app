@@ -70,7 +70,8 @@ export class Medicine extends React.Component<IMedicineProps, IMedicineState> {
         <h2 id="medicine-heading">
           <Translate contentKey="dhomoniApp.searchMedicine.home.title">Medicines</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
             <Translate contentKey="dhomoniApp.searchMedicine.home.createLabel">Create new Medicine</Translate>
           </Link>
         </h2>
@@ -101,17 +102,14 @@ export class Medicine extends React.Component<IMedicineProps, IMedicineState> {
                   <th className="hand" onClick={this.sort('chemicalName')}>
                     <Translate contentKey="dhomoniApp.searchMedicine.chemicalName">Chemical Name</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th className="hand" onClick={this.sort('type')}>
-                    <Translate contentKey="dhomoniApp.searchMedicine.type">Type</Translate> <FontAwesomeIcon icon="sort" />
+                  <th className="hand" onClick={this.sort('formulation')}>
+                    <Translate contentKey="dhomoniApp.searchMedicine.formulation">Formulation</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={this.sort('manufacturer')}>
                     <Translate contentKey="dhomoniApp.searchMedicine.manufacturer">Manufacturer</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={this.sort('mrp')}>
                     <Translate contentKey="dhomoniApp.searchMedicine.mrp">Mrp</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={this.sort('indications')}>
-                    <Translate contentKey="dhomoniApp.searchMedicine.indications">Indications</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
                   <th className="hand" onClick={this.sort('doseAndAdmin')}>
                     <Translate contentKey="dhomoniApp.searchMedicine.doseAndAdmin">Dose And Admin</Translate>{' '}
@@ -142,11 +140,10 @@ export class Medicine extends React.Component<IMedicineProps, IMedicineState> {
                     <td>{medicine.genericName}</td>
                     <td>{medicine.chemicalName}</td>
                     <td>
-                      <Translate contentKey={`dhomoniApp.MedicineType.${medicine.type}`} />
+                      <Translate contentKey={`dhomoniApp.Formulation.${medicine.formulation}`} />
                     </td>
                     <td>{medicine.manufacturer}</td>
                     <td>{medicine.mrp}</td>
-                    <td>{medicine.indications}</td>
                     <td>{medicine.doseAndAdmin}</td>
                     <td>{medicine.preparation}</td>
                     <td>{medicine.productUrl}</td>

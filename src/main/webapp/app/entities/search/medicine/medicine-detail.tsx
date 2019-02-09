@@ -53,11 +53,11 @@ export class MedicineDetail extends React.Component<IMedicineDetailProps> {
             </dt>
             <dd>{medicineEntity.chemicalName}</dd>
             <dt>
-              <span id="type">
-                <Translate contentKey="dhomoniApp.searchMedicine.type">Type</Translate>
+              <span id="formulation">
+                <Translate contentKey="dhomoniApp.searchMedicine.formulation">Formulation</Translate>
               </span>
             </dt>
-            <dd>{medicineEntity.type}</dd>
+            <dd>{medicineEntity.formulation}</dd>
             <dt>
               <span id="manufacturer">
                 <Translate contentKey="dhomoniApp.searchMedicine.manufacturer">Manufacturer</Translate>
@@ -70,12 +70,6 @@ export class MedicineDetail extends React.Component<IMedicineDetailProps> {
               </span>
             </dt>
             <dd>{medicineEntity.mrp}</dd>
-            <dt>
-              <span id="indications">
-                <Translate contentKey="dhomoniApp.searchMedicine.indications">Indications</Translate>
-              </span>
-            </dt>
-            <dd>{medicineEntity.indications}</dd>
             <dt>
               <span id="doseAndAdmin">
                 <Translate contentKey="dhomoniApp.searchMedicine.doseAndAdmin">Dose And Admin</Translate>
@@ -100,13 +94,27 @@ export class MedicineDetail extends React.Component<IMedicineDetailProps> {
               </span>
             </dt>
             <dd>{medicineEntity.active ? 'true' : 'false'}</dd>
+            <dt>
+              <Translate contentKey="dhomoniApp.searchMedicine.indications">Indications</Translate>
+            </dt>
+            <dd>
+              {medicineEntity.indications
+                ? medicineEntity.indications.map((val, i) => (
+                    <span key={val.id}>
+                      <a>{val.id}</a>
+                      {i === medicineEntity.indications.length - 1 ? '' : ', '}
+                    </span>
+                  ))
+                : null}
+            </dd>
           </dl>
           <Button tag={Link} to="/entity/medicine" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>&nbsp;
+          </Button>
+          &nbsp;
           <Button tag={Link} to={`/entity/medicine/${medicineEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">

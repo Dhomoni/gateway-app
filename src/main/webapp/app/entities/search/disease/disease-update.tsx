@@ -8,6 +8,8 @@ import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
+import { ISymptom } from 'app/shared/model/search/symptom.model';
+import { getEntities as getSymptoms } from 'app/entities/search/symptom/symptom.reducer';
 import { IMedicalDepartment } from 'app/shared/model/search/medical-department.model';
 import { getEntities as getMedicalDepartments } from 'app/entities/search/medical-department/medical-department.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './disease.reducer';
@@ -20,14 +22,16 @@ export interface IDiseaseUpdateProps extends StateProps, DispatchProps, RouteCom
 
 export interface IDiseaseUpdateState {
   isNew: boolean;
-  deptId: string;
+  idssymptoms: any[];
+  medicalDepartmentId: string;
 }
 
 export class DiseaseUpdate extends React.Component<IDiseaseUpdateProps, IDiseaseUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      deptId: '0',
+      idssymptoms: [],
+      medicalDepartmentId: '0',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -43,6 +47,7 @@ export class DiseaseUpdate extends React.Component<IDiseaseUpdateProps, IDisease
       this.props.getEntity(this.props.match.params.id);
     }
 
+    this.props.getSymptoms();
     this.props.getMedicalDepartments();
   }
 
@@ -51,7 +56,8 @@ export class DiseaseUpdate extends React.Component<IDiseaseUpdateProps, IDisease
       const { diseaseEntity } = this.props;
       const entity = {
         ...diseaseEntity,
-        ...values
+        ...values,
+        symptoms: mapIdList(values.symptoms)
       };
 
       if (this.state.isNew) {
@@ -67,7 +73,7 @@ export class DiseaseUpdate extends React.Component<IDiseaseUpdateProps, IDisease
   };
 
   render() {
-    const { diseaseEntity, medicalDepartments, loading, updating } = this.props;
+    const { diseaseEntity, symptoms, medicalDepartments, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -120,16 +126,32 @@ export class DiseaseUpdate extends React.Component<IDiseaseUpdateProps, IDisease
                   />
                 </AvGroup>
                 <AvGroup>
-                  <Label id="symptomsLabel" for="symptoms">
+                  <Label for="symptoms">
                     <Translate contentKey="dhomoniApp.searchDisease.symptoms">Symptoms</Translate>
                   </Label>
-                  <AvField id="disease-symptoms" type="text" name="symptoms" />
+                  <AvInput
+                    id="disease-symptoms"
+                    type="select"
+                    multiple
+                    className="form-control"
+                    name="symptoms"
+                    value={diseaseEntity.symptoms && diseaseEntity.symptoms.map(e => e.id)}
+                  >
+                    <option value="" key="0" />
+                    {symptoms
+                      ? symptoms.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
                 </AvGroup>
                 <AvGroup>
-                  <Label for="dept.id">
-                    <Translate contentKey="dhomoniApp.searchDisease.dept">Dept</Translate>
+                  <Label for="medicalDepartment.id">
+                    <Translate contentKey="dhomoniApp.searchDisease.medicalDepartment">Medical Department</Translate>
                   </Label>
-                  <AvInput id="disease-dept" type="select" className="form-control" name="dept.id">
+                  <AvInput id="disease-medicalDepartment" type="select" className="form-control" name="medicalDepartment.id">
                     <option value="" key="0" />
                     {medicalDepartments
                       ? medicalDepartments.map(otherEntity => (
@@ -141,14 +163,16 @@ export class DiseaseUpdate extends React.Component<IDiseaseUpdateProps, IDisease
                   </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/disease" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                  <FontAwesomeIcon icon="arrow-left" />
+                  &nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
                   </span>
                 </Button>
                 &nbsp;
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
+                  <FontAwesomeIcon icon="save" />
+                  &nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
               </AvForm>
@@ -161,6 +185,7 @@ export class DiseaseUpdate extends React.Component<IDiseaseUpdateProps, IDisease
 }
 
 const mapStateToProps = (storeState: IRootState) => ({
+  symptoms: storeState.symptom.entities,
   medicalDepartments: storeState.medicalDepartment.entities,
   diseaseEntity: storeState.disease.entity,
   loading: storeState.disease.loading,
@@ -169,6 +194,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
+  getSymptoms,
   getMedicalDepartments,
   getEntity,
   updateEntity,
