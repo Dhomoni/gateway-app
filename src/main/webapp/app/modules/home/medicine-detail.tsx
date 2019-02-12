@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAction } from 'react-jhipster';
@@ -108,7 +108,7 @@ export class MedicineDetail extends React.Component<IMedicineDetailProps> {
                 : null}
             </dd>
           </dl>
-          <Button tag={Link} to="/" replace color="info">
+          <Button onClick={this.props.history.goBack} replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>

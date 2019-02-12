@@ -1,32 +1,53 @@
 /* ==========================================================================
 Home page medicine tab styles
 ========================================================================== */
+
+@mixin transform($transforms) {
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+  transform: $transforms;
+}
+
+@mixin scale($scale) {
+  @include transform(scale($scale));
+}
+
+@mixin transform-origin($origin) {
+  -moz-transform-origin: $origin;
+  -o-transform-origin: $origin;
+  -ms-transform-origin: $origin;
+  -webkit-transform-origin: $origin;
+  transform-origin: $origin;
+}
+
+@mixin pseudo($content: '', $display: block, $position: absolute) {
+  content: $content;
+  display: $display;
+  position: $position;
+}
+
 .thumbnail iframe {
   width: 1440px;
   height: 900px;
 }
 
 .thumbnail {
+  margin: 0;
+  @include transform-origin(top left);
+  @include scale(0.1);
   position: relative;
-  -ms-zoom: 0.1;
-  -moz-transform: scale(0.1);
-  -moz-transform-origin: 0 0;
-  -o-transform: scale(0.1);
-  -o-transform-origin: 0 0;
-  -webkit-transform: scale(0.1);
-  -webkit-transform-origin: 0 0;
-  transform: scale(0.1);
-  transform-origin: 0 0;
+}
 
-  &:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
+.thumbnail::after {
+  @include pseudo;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 1440px;
+  height: 900px;
 }
 
 .thumbnail-container {

@@ -121,11 +121,13 @@ export class Medicine extends React.Component<IMedicineProps, IMedicineState> {
                   <td>{medicine.doseAndAdmin}</td>
                   <td>{medicine.preparation}</td>
                   <td>
-                    <div className="thumbnail-container" title="Thumbnail Image">
-                      <div className="thumbnail">
-                        <iframe src={medicine.productUrl} frameBorder="0" />
+                    <a href={medicine.productUrl} target="_blank">
+                      <div className="thumbnail-container" title="Thumbnail Image">
+                        <div className="thumbnail">
+                          <iframe src={medicine.productUrl} frameBorder="0" />
+                        </div>
                       </div>
-                    </div>
+                    </a>
                   </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

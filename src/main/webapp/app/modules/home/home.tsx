@@ -1,7 +1,7 @@
 import './home.scss';
 
 import React from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { Translate, translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import {
@@ -314,4 +314,4 @@ type DispatchProps = typeof mapDispatchToProps;
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home);
+)(withRouter(Home));
