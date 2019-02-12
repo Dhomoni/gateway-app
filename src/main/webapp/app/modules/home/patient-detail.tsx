@@ -25,7 +25,7 @@ export class PatientDetail extends React.Component<IPatientDetailProps> {
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="dhomoniApp.searchPatient.detail.title">Patient</Translate> [<b>{patientEntity.id}</b>]
+            <Translate contentKey="dhomoniApp.searchPatient.detail.title">Patient</Translate>
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -107,9 +107,6 @@ export class PatientDetail extends React.Component<IPatientDetailProps> {
                   <a onClick={openFile(patientEntity.imageContentType, patientEntity.image)}>
                     <img src={`data:${patientEntity.imageContentType};base64,${patientEntity.image}`} style={{ maxHeight: '30px' }} />
                   </a>
-                  <span>
-                    {patientEntity.imageContentType}, {byteSize(patientEntity.image)}
-                  </span>
                 </div>
               ) : null}
             </dd>
@@ -120,17 +117,10 @@ export class PatientDetail extends React.Component<IPatientDetailProps> {
             </dt>
             <dd>{patientEntity.activated ? 'true' : 'false'}</dd>
           </dl>
-          <Button tag={Link} to="/entity/patient" replace color="info">
+          <Button tag={Link} to="/" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
-            </span>
-          </Button>
-          &nbsp;
-          <Button tag={Link} to={`/entity/patient/${patientEntity.id}/edit`} replace color="primary">
-            <FontAwesomeIcon icon="pencil-alt" />{' '}
-            <span className="d-none d-md-inline">
-              <Translate contentKey="entity.action.edit">Edit</Translate>
             </span>
           </Button>
         </Col>
@@ -139,8 +129,8 @@ export class PatientDetail extends React.Component<IPatientDetailProps> {
   }
 }
 
-const mapStateToProps = ({ patient }: IRootState) => ({
-  patientEntity: patient.entity
+const mapStateToProps = ({ searchPatient }: IRootState) => ({
+  patientEntity: searchPatient.entity
 });
 
 const mapDispatchToProps = { searchEntity };

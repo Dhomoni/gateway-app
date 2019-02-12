@@ -1,21 +1,19 @@
 import axios from 'axios';
 import { parseHeaderForLinks, loadMoreDataWhenScrolled } from 'react-jhipster';
 
-import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
-
-import { IPatient, defaultValue } from 'app/shared/model/search/patient.model';
+import { IDisease, defaultValue } from 'app/shared/model/search/disease.model';
 
 export const ACTION_TYPES = {
-  SEARCH_PATIENTS: 'home/SEARCH_PATIENTS',
-  SEARCH_PATIENT: 'home/SEARCH_PATIENT',
+  SEARCH_DISEASES: 'home/SEARCH_DISEASES',
+  SEARCH_DISEASE: 'home/SEARCH_DISEASE',
   RESET: 'home/RESET'
 };
 
 const initialState = {
   loading: false,
   errorMessage: null,
-  entities: [] as ReadonlyArray<IPatient>,
+  entities: [] as ReadonlyArray<IDisease>,
   entity: defaultValue,
   links: { next: 0 },
   updating: false,
@@ -23,27 +21,27 @@ const initialState = {
   updateSuccess: false
 };
 
-export type SearchPatientState = Readonly<typeof initialState>;
+export type SearchDiseaseState = Readonly<typeof initialState>;
 
 // Reducer
 
-export default (state: SearchPatientState = initialState, action): SearchPatientState => {
+export default (state: SearchDiseaseState = initialState, action): SearchDiseaseState => {
   switch (action.type) {
-    case REQUEST(ACTION_TYPES.SEARCH_PATIENTS):
-    case REQUEST(ACTION_TYPES.SEARCH_PATIENT):
+    case REQUEST(ACTION_TYPES.SEARCH_DISEASES):
+    case REQUEST(ACTION_TYPES.SEARCH_DISEASE):
       return {
         ...state,
         errorMessage: null,
         loading: true
       };
-    case FAILURE(ACTION_TYPES.SEARCH_PATIENTS):
-    case FAILURE(ACTION_TYPES.SEARCH_PATIENT):
+    case FAILURE(ACTION_TYPES.SEARCH_DISEASES):
+    case FAILURE(ACTION_TYPES.SEARCH_DISEASE):
       return {
         ...state,
         loading: false,
         errorMessage: action.payload
       };
-    case SUCCESS(ACTION_TYPES.SEARCH_PATIENTS):
+    case SUCCESS(ACTION_TYPES.SEARCH_DISEASES):
       const links = parseHeaderForLinks(action.payload.headers.link);
       return {
         ...state,
@@ -52,7 +50,7 @@ export default (state: SearchPatientState = initialState, action): SearchPatient
         totalItems: action.payload.headers['x-total-count'],
         entities: loadMoreDataWhenScrolled(state.entities, action.payload.data, links)
       };
-    case SUCCESS(ACTION_TYPES.SEARCH_PATIENT):
+    case SUCCESS(ACTION_TYPES.SEARCH_DISEASE):
       return {
         ...state,
         loading: false,
@@ -67,23 +65,23 @@ export default (state: SearchPatientState = initialState, action): SearchPatient
   }
 };
 
-const searchApiUrl = 'search/api/_search/patients';
+const searchApiUrl = 'search/api/_search/diseases';
 
 // Actions
 
 export const searchEntities = (searchDTO, page, size) => {
   const requestUrl = `${searchApiUrl}?page=${page}&size=${size}`;
   return {
-    type: ACTION_TYPES.SEARCH_PATIENTS,
-    payload: axios.post<IPatient>(`${requestUrl}&cacheBuster=${new Date().getTime()}`, searchDTO)
+    type: ACTION_TYPES.SEARCH_DISEASES,
+    payload: axios.post<IDisease>(`${requestUrl}&cacheBuster=${new Date().getTime()}`, searchDTO)
   };
 };
 
 export const searchEntity = doctorId => {
   const requestUrl = `${searchApiUrl}/${doctorId}`;
   return {
-    type: ACTION_TYPES.SEARCH_PATIENT,
-    payload: axios.get<IPatient>(`${requestUrl}?cacheBuster=${new Date().getTime()}`)
+    type: ACTION_TYPES.SEARCH_DISEASE,
+    payload: axios.get<IDisease>(`${requestUrl}?cacheBuster=${new Date().getTime()}`)
   };
 };
 

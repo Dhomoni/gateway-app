@@ -146,9 +146,9 @@ public class CacheConfiguration {
         return mapConfig;
     }
 
-    private MapConfig initializeDomainMapConfig(JHipsterProperties jHipsterProperties) {
-        MapConfig mapConfig = new MapConfig();
-        mapConfig.setTimeToLiveSeconds(jHipsterProperties.getCache().getHazelcast().getTimeToLiveSeconds());
-        return mapConfig;
-    }
+//    private MapConfig initializeDomainMapConfig(JHipsterProperties jHipsterProperties) {
+//        MapConfig mapConfig = new MapConfig();
+//        mapConfig.setTimeToLiveSeconds(jHipsterProperties.getCache().getHazelcast().getTimeToLiveSeconds());
+//        return mapConfig;
+//    }
 }

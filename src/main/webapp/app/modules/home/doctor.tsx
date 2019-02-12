@@ -142,7 +142,7 @@ export class Doctor extends React.Component<IDoctorProps, IDoctorState> {
                   <td>{doctor.chambers && doctor.chambers[0].distanceInKM ? doctor.chambers[0].distanceInKM.toFixed(2) + ' km' : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${doctor.id}`} color="info" size="sm">
+                      <Button tag={Link} to={`${match.url}/doctors/${doctor.id}`} color="info" size="sm">
                         <FontAwesomeIcon icon="eye" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.view">View</Translate>

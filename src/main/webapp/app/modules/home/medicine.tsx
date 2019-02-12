@@ -1,15 +1,17 @@
+import './medicine.scss';
+
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { openFile, byteSize, Translate, ICrudGetAllAction, TextFormat, getSortState, IPaginationBaseState } from 'react-jhipster';
+import { Translate, ICrudGetAllAction, getSortState, IPaginationBaseState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { searchEntities, reset } from './patient.reducer';
-import { IPatient } from 'app/shared/model/search/patient.model';
+import { searchEntities, reset } from './medicine.reducer';
+import { IMedicine } from 'app/shared/model/search/medicine.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
@@ -21,12 +23,12 @@ export interface IParamProps {
   onRef: Function;
 }
 
-export interface IPatientProps extends StateProps, DispatchProps, IParamProps, RouteComponentProps<{ url: string }> {}
+export interface IMedicineProps extends StateProps, DispatchProps, IParamProps, RouteComponentProps<{ url: string }> {}
 
-export type IPatientState = IPaginationBaseState;
+export type IMedicineState = IPaginationBaseState;
 
-export class Patient extends React.Component<IPatientProps, IPatientState> {
-  state: IPatientState = {
+export class Medicine extends React.Component<IMedicineProps, IMedicineState> {
+  state: IMedicineState = {
     ...getSortState(this.props.location, ITEMS_PER_PAGE)
   };
 
@@ -55,8 +57,9 @@ export class Patient extends React.Component<IPatientProps, IPatientState> {
     };
     this.props.searchEntities(searchDTO, activePage - 1, itemsPerPage);
   };
+
   render() {
-    const { patientList, match } = this.props;
+    const { medicineList, match } = this.props;
     return (
       <div className="table-responsive">
         <InfiniteScroll
@@ -71,71 +74,62 @@ export class Patient extends React.Component<IPatientProps, IPatientState> {
             <thead>
               <tr>
                 <th>
-                  <Translate contentKey="dhomoniApp.searchPatient.image">Image</Translate>
+                  <Translate contentKey="dhomoniApp.searchMedicine.tradeName">Trade Name</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dhomoniApp.searchPatient.name">Name</Translate>
+                  <Translate contentKey="dhomoniApp.searchMedicine.unitQuantity">Unit Quantity</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dhomoniApp.searchPatient.email">Email</Translate>
+                  <Translate contentKey="dhomoniApp.searchMedicine.genericName">Generic Name</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dhomoniApp.searchPatient.phone">Phone</Translate>
+                  <Translate contentKey="dhomoniApp.searchMedicine.chemicalName">Chemical Name</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dhomoniApp.searchPatient.sex">Sex</Translate>
+                  <Translate contentKey="dhomoniApp.searchMedicine.formulation">Formulation</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dhomoniApp.searchPatient.birthTimestamp">Birth Timestamp</Translate>{' '}
+                  <Translate contentKey="dhomoniApp.searchMedicine.manufacturer">Manufacturer</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dhomoniApp.searchPatient.bloodGroup">Blood Group</Translate>
+                  <Translate contentKey="dhomoniApp.searchMedicine.mrp">Mrp</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dhomoniApp.searchPatient.weightInKG">Weight In KG</Translate>
+                  <Translate contentKey="dhomoniApp.searchMedicine.doseAndAdmin">Dose And Admin</Translate>{' '}
                 </th>
                 <th>
-                  <Translate contentKey="dhomoniApp.searchPatient.heightInInch">Height In Inch</Translate>
+                  <Translate contentKey="dhomoniApp.searchMedicine.preparation">Preparation</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="dhomoniApp.searchPatient.address">Address</Translate>
+                  <Translate contentKey="dhomoniApp.searchMedicine.productSite">Product Site</Translate>
                 </th>
                 <th />
               </tr>
             </thead>
             <tbody>
-              {patientList.map((patient, i) => (
+              {medicineList.map((medicine, i) => (
                 <tr key={`entity-${i}`}>
+                  <td>{medicine.tradeName}</td>
+                  <td>{medicine.unitQuantity}</td>
+                  <td>{medicine.genericName}</td>
+                  <td>{medicine.chemicalName}</td>
                   <td>
-                    {patient.image ? (
-                      <div>
-                        <a onClick={openFile(patient.imageContentType, patient.image)}>
-                          <img src={`data:${patient.imageContentType};base64,${patient.image}`} style={{ maxHeight: '30px' }} />
-                          &nbsp;
-                        </a>
+                    <Translate contentKey={`dhomoniApp.Formulation.${medicine.formulation}`} />
+                  </td>
+                  <td>{medicine.manufacturer}</td>
+                  <td>{medicine.mrp}</td>
+                  <td>{medicine.doseAndAdmin}</td>
+                  <td>{medicine.preparation}</td>
+                  <td>
+                    <div className="thumbnail-container" title="Thumbnail Image">
+                      <div className="thumbnail">
+                        <iframe src={medicine.productUrl} frameBorder="0" />
                       </div>
-                    ) : null}
+                    </div>
                   </td>
-                  <td>
-                    {patient.firstName} {patient.lastName}
-                  </td>
-                  <td>{patient.email}</td>
-                  <td>{patient.phone}</td>
-                  <td>
-                    <Translate contentKey={`dhomoniApp.Sex.${patient.sex}`} />
-                  </td>
-                  <td>
-                    <TextFormat type="date" value={patient.birthTimestamp} format={APP_DATE_FORMAT} />
-                  </td>
-                  <td>
-                    <Translate contentKey={`dhomoniApp.BloodGroup.${patient.bloodGroup}`} />
-                  </td>
-                  <td>{patient.weightInKG}</td>
-                  <td>{patient.heightInInch}</td>
-                  <td>{patient.address}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/patients/${patient.id}`} color="info" size="sm">
+                      <Button tag={Link} to={`${match.url}/medicines/${medicine.id}`} color="info" size="sm">
                         <FontAwesomeIcon icon="eye" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.view">View</Translate>
@@ -153,10 +147,10 @@ export class Patient extends React.Component<IPatientProps, IPatientState> {
   }
 }
 
-const mapStateToProps = ({ searchPatient }: IRootState) => ({
-  patientList: searchPatient.entities,
-  totalItems: searchPatient.totalItems,
-  links: searchPatient.links
+const mapStateToProps = ({ searchMedicine }: IRootState) => ({
+  medicineList: searchMedicine.entities,
+  totalItems: searchMedicine.totalItems,
+  links: searchMedicine.links
 });
 
 const mapDispatchToProps = {
@@ -170,4 +164,4 @@ type DispatchProps = typeof mapDispatchToProps;
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Patient);
+)(Medicine);

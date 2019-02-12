@@ -25,7 +25,7 @@ export class DoctorDetail extends React.Component<IDoctorDetailProps> {
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="dhomoniApp.searchDoctor.detail.title">Doctor</Translate> [<b>{doctorEntity.id}</b>]
+            <Translate contentKey="dhomoniApp.searchDoctor.detail.title">Doctor</Translate>
           </h2>
           <dl className="jh-entity-details">
             <dt>

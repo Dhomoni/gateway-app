@@ -14,12 +14,14 @@ import doctor, { DoctorState } from 'app/entities/search/doctor/doctor.reducer';
 import searchDoctor, { SearchDoctorState } from 'app/modules/home/doctor.reducer';
 import medicalDepartment, { MedicalDepartmentState } from 'app/entities/search/medical-department/medical-department.reducer';
 import disease, { DiseaseState } from 'app/entities/search/disease/disease.reducer';
+import searchDisease, { SearchDiseaseState } from 'app/modules/home/disease.reducer';
 import chamber, { ChamberState } from 'app/entities/search/chamber/chamber.reducer';
 import weeklyVisitingHour, { WeeklyVisitingHourState } from 'app/entities/search/weekly-visiting-hour/weekly-visiting-hour.reducer';
 import professionalDegree, { ProfessionalDegreeState } from 'app/entities/search/professional-degree/professional-degree.reducer';
 import patient, { PatientState } from 'app/entities/search/patient/patient.reducer';
 import searchPatient, { SearchPatientState } from 'app/modules/home/patient.reducer';
 import medicine, { MedicineState } from 'app/entities/search/medicine/medicine.reducer';
+import searchMedicine, { SearchMedicineState } from 'app/modules/home/medicine.reducer';
 import symptom, { SymptomState } from 'app/entities/search/symptom/symptom.reducer';
 import indication, { IndicationState } from 'app/entities/search/indication/indication.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
@@ -39,12 +41,14 @@ export interface IRootState {
   readonly searchDoctor: SearchDoctorState;
   readonly medicalDepartment: MedicalDepartmentState;
   readonly disease: DiseaseState;
+  readonly searchDisease: SearchDiseaseState;
   readonly chamber: ChamberState;
   readonly weeklyVisitingHour: WeeklyVisitingHourState;
   readonly professionalDegree: ProfessionalDegreeState;
   readonly patient: PatientState;
   readonly searchPatient: SearchPatientState;
   readonly medicine: MedicineState;
+  readonly searchMedicine: SearchMedicineState;
   readonly symptom: SymptomState;
   readonly indication: IndicationState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
@@ -66,12 +70,14 @@ const rootReducer = combineReducers<IRootState>({
   searchDoctor,
   medicalDepartment,
   disease,
+  searchDisease,
   chamber,
   weeklyVisitingHour,
   professionalDegree,
   patient,
   searchPatient,
   medicine,
+  searchMedicine,
   symptom,
   indication,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */

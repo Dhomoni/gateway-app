@@ -35,6 +35,8 @@ import { AvForm, AvField, AvGroup } from 'availity-reactstrap-validation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Doctor from './doctor';
 import Patient from './patient';
+import Medicine from './medicine';
+import Disease from './disease';
 
 export interface IHomeProp extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -48,6 +50,8 @@ export interface IHomeState {
   doctor: any;
   patient: any;
   activeTab: string;
+  medicine: any;
+  disease: any;
 }
 
 export class Home extends React.Component<IHomeProp, IHomeState> {
@@ -60,6 +64,8 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
     dropDownSelectedText: 'All',
     doctor: null,
     patient: null,
+    medicine: null,
+    disease: null,
     activeTab: 'doctor'
   };
 
@@ -98,6 +104,10 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
       this.state.doctor.reset();
     } else if (this.state.patient && this.state.activeTab === 'patient') {
       this.state.patient.reset();
+    } else if (this.state.patient && this.state.activeTab === 'medicine') {
+      this.state.medicine.reset();
+    } else if (this.state.patient && this.state.activeTab === 'disease') {
+      this.state.disease.reset();
     }
   };
 
@@ -147,9 +157,25 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
     }
   };
 
+  handleMedicineTabClick = () => {
+    if (this.state.activeTab !== 'medicine') {
+      this.setState({ activeTab: 'medicine' }, () => this.reset());
+    }
+  };
+
+  handleDiseaseTabClick = () => {
+    if (this.state.activeTab !== 'disease') {
+      this.setState({ activeTab: 'disease' }, () => this.reset());
+    }
+  };
+
   setDoctorRef = ref => this.setState({ doctor: ref });
 
   setPatientRef = ref => this.setState({ patient: ref });
+
+  setMedicineRef = ref => this.setState({ medicine: ref });
+
+  setDiseaseRef = ref => this.setState({ disease: ref });
 
   render() {
     const { account } = this.props;
@@ -205,29 +231,53 @@ export class Home extends React.Component<IHomeProp, IHomeState> {
             Patients
           </NavLink>
         </NavItem>
+        <NavItem>
+          <NavLink className={classnames({ active: this.state.activeTab === 'medicine' })} onClick={this.handleMedicineTabClick}>
+            Medicines
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink className={classnames({ active: this.state.activeTab === 'disease' })} onClick={this.handleDiseaseTabClick}>
+            Diseases
+          </NavLink>
+        </NavItem>
       </Nav>
       <TabContent activeTab={this.state.activeTab}>
         <TabPane tabId="doctor">
-          <TabPane tabId="doctor">
-            <Doctor
-              onRef={this.setDoctorRef}
-              query={this.state.query}
-              currentLocation={this.state.currentLocation}
-              searchRadius={this.state.searchRadius}
-              {...this.props}
-            />
-          </TabPane>
+          <Doctor
+            onRef={this.setDoctorRef}
+            query={this.state.query}
+            currentLocation={this.state.currentLocation}
+            searchRadius={this.state.searchRadius}
+            {...this.props}
+          />
         </TabPane>
         <TabPane tabId="patient">
-          <TabPane tabId="patient">
-            <Patient
-              onRef={this.setPatientRef}
-              query={this.state.query}
-              currentLocation={this.state.currentLocation}
-              searchRadius={this.state.searchRadius}
-              {...this.props}
-            />
-          </TabPane>
+          <Patient
+            onRef={this.setPatientRef}
+            query={this.state.query}
+            currentLocation={this.state.currentLocation}
+            searchRadius={this.state.searchRadius}
+            {...this.props}
+          />
+        </TabPane>
+        <TabPane tabId="medicine">
+          <Medicine
+            onRef={this.setMedicineRef}
+            query={this.state.query}
+            currentLocation={this.state.currentLocation}
+            searchRadius={this.state.searchRadius}
+            {...this.props}
+          />
+        </TabPane>
+        <TabPane tabId="disease">
+          <Disease
+            onRef={this.setDiseaseRef}
+            query={this.state.query}
+            currentLocation={this.state.currentLocation}
+            searchRadius={this.state.searchRadius}
+            {...this.props}
+          />
         </TabPane>
       </TabContent>
     </div>
