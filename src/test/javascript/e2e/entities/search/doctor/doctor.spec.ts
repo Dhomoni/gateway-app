@@ -68,6 +68,10 @@ describe('Doctor e2e test', () => {
     await doctorUpdatePage.typeSelectLastOption();
     await doctorUpdatePage.setDesignationInput('designation');
     expect(await doctorUpdatePage.getDesignationInput()).to.match(/designation/);
+    await doctorUpdatePage.setInstituteInput('institute');
+    expect(await doctorUpdatePage.getInstituteInput()).to.match(/institute/);
+    await doctorUpdatePage.setSpecialityInput('speciality');
+    expect(await doctorUpdatePage.getSpecialityInput()).to.match(/speciality/);
     await doctorUpdatePage.setDescriptionInput('description');
     expect(await doctorUpdatePage.getDescriptionInput()).to.match(/description/);
     await doctorUpdatePage.setAddressInput('address');

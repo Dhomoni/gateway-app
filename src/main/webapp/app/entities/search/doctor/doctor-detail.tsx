@@ -89,6 +89,18 @@ export class DoctorDetail extends React.Component<IDoctorDetailProps> {
             </dt>
             <dd>{doctorEntity.designation}</dd>
             <dt>
+              <span id="institute">
+                <Translate contentKey="dhomoniApp.searchDoctor.institute">Institute</Translate>
+              </span>
+            </dt>
+            <dd>{doctorEntity.institute}</dd>
+            <dt>
+              <span id="speciality">
+                <Translate contentKey="dhomoniApp.searchDoctor.speciality">Speciality</Translate>
+              </span>
+            </dt>
+            <dd>{doctorEntity.speciality}</dd>
+            <dt>
               <span id="description">
                 <Translate contentKey="dhomoniApp.searchDoctor.description">Description</Translate>
               </span>
@@ -133,7 +145,8 @@ export class DoctorDetail extends React.Component<IDoctorDetailProps> {
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>&nbsp;
+          </Button>
+          &nbsp;
           <Button tag={Link} to={`/entity/doctor/${doctorEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
