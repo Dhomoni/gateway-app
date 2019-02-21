@@ -70,7 +70,8 @@ export class Doctor extends React.Component<IDoctorProps, IDoctorState> {
         <h2 id="doctor-heading">
           <Translate contentKey="dhomoniApp.searchDoctor.home.title">Doctors</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
             <Translate contentKey="dhomoniApp.searchDoctor.home.createLabel">Create new Doctor</Translate>
           </Link>
         </h2>
@@ -120,6 +121,12 @@ export class Doctor extends React.Component<IDoctorProps, IDoctorState> {
                   <th className="hand" onClick={this.sort('designation')}>
                     <Translate contentKey="dhomoniApp.searchDoctor.designation">Designation</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={this.sort('institute')}>
+                    <Translate contentKey="dhomoniApp.searchDoctor.institute">Institute</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('speciality')}>
+                    <Translate contentKey="dhomoniApp.searchDoctor.speciality">Speciality</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th className="hand" onClick={this.sort('description')}>
                     <Translate contentKey="dhomoniApp.searchDoctor.description">Description</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -159,6 +166,8 @@ export class Doctor extends React.Component<IDoctorProps, IDoctorState> {
                       <Translate contentKey={`dhomoniApp.DoctorType.${doctor.type}`} />
                     </td>
                     <td>{doctor.designation}</td>
+                    <td>{doctor.institute}</td>
+                    <td>{doctor.speciality}</td>
                     <td>{doctor.description}</td>
                     <td>{doctor.address}</td>
                     <td>

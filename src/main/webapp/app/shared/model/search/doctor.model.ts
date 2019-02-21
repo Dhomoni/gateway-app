@@ -1,6 +1,6 @@
-import { IMedicalDepartment } from 'app/shared/model/search/medical-department.model';
 import { IChamber } from 'app/shared/model/search/chamber.model';
 import { IProfessionalDegree } from 'app/shared/model/search/professional-degree.model';
+import { IMedicalDepartment } from 'app/shared/model/search/medical-department.model';
 
 export const enum DoctorType {
   PHYSICIAN = 'PHYSICIAN',
@@ -19,14 +19,16 @@ export interface IDoctor {
   passportNo?: string;
   type?: DoctorType;
   designation?: string;
+  institute?: string;
+  speciality?: string;
   description?: any;
   address?: string;
   imageContentType?: string;
   image?: any;
   activated?: boolean;
-  medicalDepartment?: IMedicalDepartment;
   chambers?: IChamber[];
   professionalDegrees?: IProfessionalDegree[];
+  medicalDepartment?: IMedicalDepartment;
 }
 
 export const defaultValue: Readonly<IDoctor> = {

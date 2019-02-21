@@ -14,8 +14,8 @@
       },
       "registrationId": "Registration Id",
       "firstName": "First Name",
-      "name": "Name",
       "lastName": "Last Name",
+      "name": "Name",
       "email": "Email",
       "phone": "Phone",
       "licenceNumber": "Licence Number",
@@ -23,15 +23,16 @@
       "passportNo": "Passport No",
       "type": "Type",
       "designation": "Designation",
+      "institute": "Institute",
+      "speciality": "Speciality",
       "description": "Description",
       "address": "Address",
       "image": "Image",
       "activated": "Activated",
-      "medicalDepartment": "Medical Department",
-      "address": "Address",
       "chambers": "Chambers",
       "professionalDegrees": "Professional Degrees",
-      "distance": "Distance"
+      "distance": "Distance",
+      "medicalDepartment": "Medical Department"
     }
   },
   "searchApp": {

@@ -88,6 +88,20 @@ export class DoctorDetail extends React.Component<IDoctorDetailProps> {
               </span>
             </dt>
             <dd>{doctorEntity.designation}</dd>
+
+            <dt>
+              <span id="institute">
+                <Translate contentKey="dhomoniApp.searchDoctor.institute">Institute</Translate>
+              </span>
+            </dt>
+            <dd>{doctorEntity.institute}</dd>
+            <dt>
+              <span id="speciality">
+                <Translate contentKey="dhomoniApp.searchDoctor.speciality">Speciality</Translate>
+              </span>
+            </dt>
+            <dd>{doctorEntity.speciality}</dd>
+
             <dt>
               <span id="description">
                 <Translate contentKey="dhomoniApp.searchDoctor.description">Description</Translate>

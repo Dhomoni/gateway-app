@@ -192,6 +192,18 @@ export class DoctorUpdate extends React.Component<IDoctorUpdateProps, IDoctorUpd
                   <AvField id="doctor-designation" type="text" name="designation" />
                 </AvGroup>
                 <AvGroup>
+                  <Label id="instituteLabel" for="institute">
+                    <Translate contentKey="dhomoniApp.searchDoctor.institute">Institute</Translate>
+                  </Label>
+                  <AvField id="doctor-institute" type="text" name="institute" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="specialityLabel" for="speciality">
+                    <Translate contentKey="dhomoniApp.searchDoctor.speciality">Speciality</Translate>
+                  </Label>
+                  <AvField id="doctor-speciality" type="text" name="speciality" />
+                </AvGroup>
+                <AvGroup>
                   <Label id="descriptionLabel" for="description">
                     <Translate contentKey="dhomoniApp.searchDoctor.description">Description</Translate>
                   </Label>
@@ -255,14 +267,16 @@ export class DoctorUpdate extends React.Component<IDoctorUpdateProps, IDoctorUpd
                   </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/doctor" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                  <FontAwesomeIcon icon="arrow-left" />
+                  &nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
                   </span>
                 </Button>
                 &nbsp;
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
+                  <FontAwesomeIcon icon="save" />
+                  &nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
               </AvForm>

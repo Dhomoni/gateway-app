@@ -104,6 +104,12 @@ export class Doctor extends React.Component<IDoctorProps, IDoctorState> {
                   <Translate contentKey="dhomoniApp.searchDoctor.designation">Designation</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="dhomoniApp.searchDoctor.institute">Institute</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="dhomoniApp.searchDoctor.speciality">Speciality</Translate>
+                </th>
+                <th>
                   <Translate contentKey="dhomoniApp.searchDoctor.medicalDepartment">Medical Department</Translate>
                 </th>
                 <th>
@@ -137,6 +143,8 @@ export class Doctor extends React.Component<IDoctorProps, IDoctorState> {
                     <Translate contentKey={`dhomoniApp.DoctorType.${doctor.type}`} />
                   </td>
                   <td>{doctor.designation}</td>
+                  <td>{doctor.institute}</td>
+                  <td>{doctor.speciality}</td>
                   <td>{doctor.medicalDepartment ? doctor.medicalDepartment.name : ''}</td>
                   <td>{doctor.chambers ? doctor.chambers[0].address : ''}</td>
                   <td>{doctor.chambers && doctor.chambers[0].distanceInKM ? doctor.chambers[0].distanceInKM.toFixed(2) + ' km' : ''}</td>

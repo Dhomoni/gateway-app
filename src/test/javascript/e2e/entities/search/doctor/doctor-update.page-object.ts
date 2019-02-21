@@ -14,6 +14,8 @@ export default class DoctorUpdatePage {
   passportNoInput: ElementFinder = element(by.css('input#doctor-passportNo'));
   typeSelect: ElementFinder = element(by.css('select#doctor-type'));
   designationInput: ElementFinder = element(by.css('input#doctor-designation'));
+  instituteInput: ElementFinder = element(by.css('input#doctor-institute'));
+  specialityInput: ElementFinder = element(by.css('input#doctor-speciality'));
   descriptionInput: ElementFinder = element(by.css('textarea#doctor-description'));
   addressInput: ElementFinder = element(by.css('input#doctor-address'));
   imageInput: ElementFinder = element(by.css('input#file_image'));
@@ -108,6 +110,22 @@ export default class DoctorUpdatePage {
 
   async getDesignationInput() {
     return this.designationInput.getAttribute('value');
+  }
+
+  async setInstituteInput(institute) {
+    await this.instituteInput.sendKeys(institute);
+  }
+
+  async getInstituteInput() {
+    return this.instituteInput.getAttribute('value');
+  }
+
+  async setSpecialityInput(speciality) {
+    await this.specialityInput.sendKeys(speciality);
+  }
+
+  async getSpecialityInput() {
+    return this.specialityInput.getAttribute('value');
   }
 
   async setDescriptionInput(description) {
