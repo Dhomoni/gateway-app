@@ -7,8 +7,14 @@ export interface IChamber {
   phone?: string;
   fee?: number;
   distanceInKM?: number;
+  isSuspended?: boolean;
+  notice?: string;
+  appointmentLimit?: number;
+  adviceDurationInMinute?: number;
   doctor?: IDoctor;
   weeklyVisitingHours?: IWeeklyVisitingHour[];
 }
 
-export const defaultValue: Readonly<IChamber> = {};
+export const defaultValue: Readonly<IChamber> = {
+  isSuspended: false
+};

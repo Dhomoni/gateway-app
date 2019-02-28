@@ -7,6 +7,10 @@ export default class ChamberUpdatePage {
   addressInput: ElementFinder = element(by.css('input#chamber-address'));
   phoneInput: ElementFinder = element(by.css('input#chamber-phone'));
   feeInput: ElementFinder = element(by.css('input#chamber-fee'));
+  isSuspendedInput: ElementFinder = element(by.css('input#chamber-isSuspended'));
+  noticeInput: ElementFinder = element(by.css('input#chamber-notice'));
+  appointmentLimitInput: ElementFinder = element(by.css('input#chamber-appointmentLimit'));
+  adviceDurationInMinuteInput: ElementFinder = element(by.css('input#chamber-adviceDurationInMinute'));
   doctorSelect: ElementFinder = element(by.css('select#chamber-doctor'));
 
   getPageTitle() {
@@ -35,6 +39,33 @@ export default class ChamberUpdatePage {
 
   async getFeeInput() {
     return this.feeInput.getAttribute('value');
+  }
+
+  getIsSuspendedInput() {
+    return this.isSuspendedInput;
+  }
+  async setNoticeInput(notice) {
+    await this.noticeInput.sendKeys(notice);
+  }
+
+  async getNoticeInput() {
+    return this.noticeInput.getAttribute('value');
+  }
+
+  async setAppointmentLimitInput(appointmentLimit) {
+    await this.appointmentLimitInput.sendKeys(appointmentLimit);
+  }
+
+  async getAppointmentLimitInput() {
+    return this.appointmentLimitInput.getAttribute('value');
+  }
+
+  async setAdviceDurationInMinuteInput(adviceDurationInMinute) {
+    await this.adviceDurationInMinuteInput.sendKeys(adviceDurationInMinute);
+  }
+
+  async getAdviceDurationInMinuteInput() {
+    return this.adviceDurationInMinuteInput.getAttribute('value');
   }
 
   async doctorSelectLastOption() {

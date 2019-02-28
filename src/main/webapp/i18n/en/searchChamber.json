@@ -15,6 +15,10 @@
       "address": "Address",
       "phone": "Phone",
       "fee": "Fee",
+      "isSuspended": "Is Suspended",
+      "notice": "Notice",
+      "appointmentLimit": "Appointment Limit",
+      "adviceDurationInMinute": "Advice Duration In Minute",
       "doctor": "Doctor",
       "weeklyVisitingHours": "Weekly Visiting Hours"
     }

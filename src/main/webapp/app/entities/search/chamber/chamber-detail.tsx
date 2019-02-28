@@ -47,6 +47,30 @@ export class ChamberDetail extends React.Component<IChamberDetailProps> {
             </dt>
             <dd>{chamberEntity.fee}</dd>
             <dt>
+              <span id="isSuspended">
+                <Translate contentKey="dhomoniApp.searchChamber.isSuspended">Is Suspended</Translate>
+              </span>
+            </dt>
+            <dd>{chamberEntity.isSuspended ? 'true' : 'false'}</dd>
+            <dt>
+              <span id="notice">
+                <Translate contentKey="dhomoniApp.searchChamber.notice">Notice</Translate>
+              </span>
+            </dt>
+            <dd>{chamberEntity.notice}</dd>
+            <dt>
+              <span id="appointmentLimit">
+                <Translate contentKey="dhomoniApp.searchChamber.appointmentLimit">Appointment Limit</Translate>
+              </span>
+            </dt>
+            <dd>{chamberEntity.appointmentLimit}</dd>
+            <dt>
+              <span id="adviceDurationInMinute">
+                <Translate contentKey="dhomoniApp.searchChamber.adviceDurationInMinute">Advice Duration In Minute</Translate>
+              </span>
+            </dt>
+            <dd>{chamberEntity.adviceDurationInMinute}</dd>
+            <dt>
               <Translate contentKey="dhomoniApp.searchChamber.doctor">Doctor</Translate>
             </dt>
             <dd>{chamberEntity.doctor ? chamberEntity.doctor.id : ''}</dd>
@@ -56,7 +80,8 @@ export class ChamberDetail extends React.Component<IChamberDetailProps> {
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>&nbsp;
+          </Button>
+          &nbsp;
           <Button tag={Link} to={`/entity/chamber/${chamberEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">

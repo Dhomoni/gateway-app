@@ -70,7 +70,8 @@ export class Chamber extends React.Component<IChamberProps, IChamberState> {
         <h2 id="chamber-heading">
           <Translate contentKey="dhomoniApp.searchChamber.home.title">Chambers</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
             <Translate contentKey="dhomoniApp.searchChamber.home.createLabel">Create new Chamber</Translate>
           </Link>
         </h2>
@@ -98,6 +99,20 @@ export class Chamber extends React.Component<IChamberProps, IChamberState> {
                   <th className="hand" onClick={this.sort('fee')}>
                     <Translate contentKey="dhomoniApp.searchChamber.fee">Fee</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
+                  <th className="hand" onClick={this.sort('isSuspended')}>
+                    <Translate contentKey="dhomoniApp.searchChamber.isSuspended">Is Suspended</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('notice')}>
+                    <Translate contentKey="dhomoniApp.searchChamber.notice">Notice</Translate> <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('appointmentLimit')}>
+                    <Translate contentKey="dhomoniApp.searchChamber.appointmentLimit">Appointment Limit</Translate>{' '}
+                    <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={this.sort('adviceDurationInMinute')}>
+                    <Translate contentKey="dhomoniApp.searchChamber.adviceDurationInMinute">Advice Duration In Minute</Translate>{' '}
+                    <FontAwesomeIcon icon="sort" />
+                  </th>
                   <th>
                     <Translate contentKey="dhomoniApp.searchChamber.doctor">Doctor</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -115,6 +130,10 @@ export class Chamber extends React.Component<IChamberProps, IChamberState> {
                     <td>{chamber.address}</td>
                     <td>{chamber.phone}</td>
                     <td>{chamber.fee}</td>
+                    <td>{chamber.isSuspended ? 'true' : 'false'}</td>
+                    <td>{chamber.notice}</td>
+                    <td>{chamber.appointmentLimit}</td>
+                    <td>{chamber.adviceDurationInMinute}</td>
                     <td>{chamber.doctor ? <Link to={`doctor/${chamber.doctor.id}`}>{chamber.doctor.id}</Link> : ''}</td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">

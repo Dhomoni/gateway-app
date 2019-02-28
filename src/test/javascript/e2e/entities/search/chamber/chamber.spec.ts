@@ -52,6 +52,20 @@ describe('Chamber e2e test', () => {
     expect(await chamberUpdatePage.getPhoneInput()).to.match(/phone/);
     await chamberUpdatePage.setFeeInput('5');
     expect(await chamberUpdatePage.getFeeInput()).to.eq('5');
+    const selectedIsSuspended = await chamberUpdatePage.getIsSuspendedInput().isSelected();
+    if (selectedIsSuspended) {
+      await chamberUpdatePage.getIsSuspendedInput().click();
+      expect(await chamberUpdatePage.getIsSuspendedInput().isSelected()).to.be.false;
+    } else {
+      await chamberUpdatePage.getIsSuspendedInput().click();
+      expect(await chamberUpdatePage.getIsSuspendedInput().isSelected()).to.be.true;
+    }
+    await chamberUpdatePage.setNoticeInput('notice');
+    expect(await chamberUpdatePage.getNoticeInput()).to.match(/notice/);
+    await chamberUpdatePage.setAppointmentLimitInput('5');
+    expect(await chamberUpdatePage.getAppointmentLimitInput()).to.eq('5');
+    await chamberUpdatePage.setAdviceDurationInMinuteInput('5');
+    expect(await chamberUpdatePage.getAdviceDurationInMinuteInput()).to.eq('5');
     await chamberUpdatePage.doctorSelectLastOption();
     await waitUntilDisplayed(chamberUpdatePage.getSaveButton());
     await chamberUpdatePage.save();

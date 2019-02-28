@@ -1,13 +1,13 @@
 import { IChamber } from 'app/shared/model/search/chamber.model';
 
 export const enum WeekDay {
-  SUN = 'SUN',
-  MON = 'MON',
-  TUES = 'TUES',
-  WED = 'WED',
-  THURS = 'THURS',
-  FRI = 'FRI',
-  SAT = 'SAT'
+  SUNDAY = 'SUNDAY',
+  MONDAY = 'MONDAY',
+  TUESDAY = 'TUESDAY',
+  WEDNESDAY = 'WEDNESDAY',
+  THURSDAY = 'THURSDAY',
+  FRIDAY = 'FRIDAY',
+  SATURDAY = 'SATURDAY'
 }
 
 export interface IWeeklyVisitingHour {

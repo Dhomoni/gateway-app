@@ -112,6 +112,30 @@ export class ChamberUpdate extends React.Component<IChamberUpdateProps, IChamber
                   <AvField id="chamber-fee" type="string" className="form-control" name="fee" />
                 </AvGroup>
                 <AvGroup>
+                  <Label id="isSuspendedLabel" check>
+                    <AvInput id="chamber-isSuspended" type="checkbox" className="form-control" name="isSuspended" />
+                    <Translate contentKey="dhomoniApp.searchChamber.isSuspended">Is Suspended</Translate>
+                  </Label>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="noticeLabel" for="notice">
+                    <Translate contentKey="dhomoniApp.searchChamber.notice">Notice</Translate>
+                  </Label>
+                  <AvField id="chamber-notice" type="text" name="notice" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="appointmentLimitLabel" for="appointmentLimit">
+                    <Translate contentKey="dhomoniApp.searchChamber.appointmentLimit">Appointment Limit</Translate>
+                  </Label>
+                  <AvField id="chamber-appointmentLimit" type="string" className="form-control" name="appointmentLimit" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="adviceDurationInMinuteLabel" for="adviceDurationInMinute">
+                    <Translate contentKey="dhomoniApp.searchChamber.adviceDurationInMinute">Advice Duration In Minute</Translate>
+                  </Label>
+                  <AvField id="chamber-adviceDurationInMinute" type="string" className="form-control" name="adviceDurationInMinute" />
+                </AvGroup>
+                <AvGroup>
                   <Label for="doctor.id">
                     <Translate contentKey="dhomoniApp.searchChamber.doctor">Doctor</Translate>
                   </Label>
@@ -127,14 +151,16 @@ export class ChamberUpdate extends React.Component<IChamberUpdateProps, IChamber
                   </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/chamber" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                  <FontAwesomeIcon icon="arrow-left" />
+                  &nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
                   </span>
                 </Button>
                 &nbsp;
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
+                  <FontAwesomeIcon icon="save" />
+                  &nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
               </AvForm>

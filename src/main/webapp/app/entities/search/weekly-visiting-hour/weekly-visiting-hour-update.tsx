@@ -104,28 +104,28 @@ export class WeeklyVisitingHourUpdate extends React.Component<IWeeklyVisitingHou
                     type="select"
                     className="form-control"
                     name="weekDay"
-                    value={(!isNew && weeklyVisitingHourEntity.weekDay) || 'SUN'}
+                    value={(!isNew && weeklyVisitingHourEntity.weekDay) || 'SUNDAY'}
                   >
-                    <option value="SUN">
-                      <Translate contentKey="dhomoniApp.WeekDay.SUN" />
+                    <option value="SUNDAY">
+                      <Translate contentKey="dhomoniApp.WeekDay.SUNDAY" />
                     </option>
-                    <option value="MON">
-                      <Translate contentKey="dhomoniApp.WeekDay.MON" />
+                    <option value="MONDAY">
+                      <Translate contentKey="dhomoniApp.WeekDay.MONDAY" />
                     </option>
-                    <option value="TUES">
-                      <Translate contentKey="dhomoniApp.WeekDay.TUES" />
+                    <option value="TUESDAY">
+                      <Translate contentKey="dhomoniApp.WeekDay.TUESDAY" />
                     </option>
-                    <option value="WED">
-                      <Translate contentKey="dhomoniApp.WeekDay.WED" />
+                    <option value="WEDNESDAY">
+                      <Translate contentKey="dhomoniApp.WeekDay.WEDNESDAY" />
                     </option>
-                    <option value="THURS">
-                      <Translate contentKey="dhomoniApp.WeekDay.THURS" />
+                    <option value="THURSDAY">
+                      <Translate contentKey="dhomoniApp.WeekDay.THURSDAY" />
                     </option>
-                    <option value="FRI">
-                      <Translate contentKey="dhomoniApp.WeekDay.FRI" />
+                    <option value="FRIDAY">
+                      <Translate contentKey="dhomoniApp.WeekDay.FRIDAY" />
                     </option>
-                    <option value="SAT">
-                      <Translate contentKey="dhomoniApp.WeekDay.SAT" />
+                    <option value="SATURDAY">
+                      <Translate contentKey="dhomoniApp.WeekDay.SATURDAY" />
                     </option>
                   </AvInput>
                 </AvGroup>
@@ -209,14 +209,16 @@ export class WeeklyVisitingHourUpdate extends React.Component<IWeeklyVisitingHou
                   </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/weekly-visiting-hour" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                  <FontAwesomeIcon icon="arrow-left" />
+                  &nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
                   </span>
                 </Button>
                 &nbsp;
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
+                  <FontAwesomeIcon icon="save" />
+                  &nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
               </AvForm>
